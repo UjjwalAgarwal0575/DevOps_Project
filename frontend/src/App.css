@@ -1,11 +1,10 @@
 .App {
-  text-align: center;
+  text-align: left;
+  /* width: 70%; */
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -35,4 +34,75 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Problem statement page */
+
+.problem-statement {
+  width: 80%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.problem-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.problem-description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.input-output {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+
+ /* Problem list */
+
+ header {
+  /* background-color: #007bff; */
+  background-color: black;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.problem-list {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.problem {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.problem:hover {
+  background-color: #f0f0f0;
+}
+
+.problem-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.problem-description {
+  font-size: 14px;
+  color: #555;
 }
