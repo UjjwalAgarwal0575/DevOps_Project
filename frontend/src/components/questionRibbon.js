@@ -1,7 +1,15 @@
 import {react} from 'react';
 import { useNavigate } from 'react-router-dom';
 
+function sliceProblemStatement(s){
+    if (s.length <= 100) return s;
+    
+    return s.slice(0, 100) + "...";
+
+}
+
 function QuestionRibbon(props){
+
 
     let navigate = useNavigate();
     const routeChange = (path) => {
@@ -22,7 +30,7 @@ function QuestionRibbon(props){
     return (
         <div class="problem" onClick={openProblem} style={{backgroundColor: bgColor}}>
             <div class="problem-title" >Problem {props.problem.id}: {props.problem.title}</div>
-            <div class="problem-description">{props.problem.problemStatement}</div>
+            <div class="problem-description">{sliceProblemStatement(props.problem.problemStatement)}</div>
         </div>
     );
 

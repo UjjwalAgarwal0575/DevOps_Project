@@ -1,9 +1,8 @@
-.App {
+/* .App {
   text-align: left;
-  /* width: 70%; */
   margin-left: 10%;
   margin-right: 10%;
-}
+} */
 
 
 @media (prefers-reduced-motion: no-preference) {
@@ -39,17 +38,18 @@
 /* Problem statement page */
 
 .problem-statement {
-  width: 80%;
+  margin: 2% 20%;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .problem-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  text-align: center;
+  /* font-size: 24px; */
+  /* font-weight: bold; */
+  /* margin-bottom: 100px; */
 }
 
 .problem-description {
@@ -74,6 +74,9 @@
   color: #fff;
   padding: 10px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .problem-list {
@@ -82,7 +85,7 @@
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
 }
 
 .problem {
@@ -105,4 +108,38 @@
 .problem-description {
   font-size: 14px;
   color: #555;
+}
+
+
+.problem-section {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  /* background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* nav {
+  background-color: #171c53;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.profile-button {
+  padding: 5px 10px;
+  /* background-color: #4CAF50; */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
 }
