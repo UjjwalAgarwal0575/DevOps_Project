@@ -39,7 +39,6 @@ public class SubmissionController {
         }
 
         try{
-
             byte[] fileBytes = file.getBytes();
             String fileContent = new String(fileBytes);
 

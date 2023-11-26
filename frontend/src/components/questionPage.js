@@ -1,12 +1,36 @@
-import { react, useEffect } from 'react';
-
+import { react, useState } from 'react';
+import axios from 'axios';
 
 function QuestionPage(props) {
 
     const problem = props.problem;
+    const [selectedCodeFile, setSelectedCodeFile] = useState(null);
 
-    function submitCode() {
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedCodeFile(file);
+    };
 
+
+    const submitCode = async () => {
+        if (!selectedCodeFile) {
+            alert("Please select a file to upload!");
+        }else {
+            try {
+                const formData = new FormData();
+                formData.append('file', selectedCodeFile);
+
+                const response = await axios.post('http://localhost:8082/api/submit-file', formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data',
+                  },
+                });
+          
+                console.log('API Response:', response.data);
+              } catch (error) {
+                console.error('Error uploading file:', error);
+              }
+        }
     }
 
 
@@ -40,7 +64,10 @@ function QuestionPage(props) {
                     <code dangerouslySetInnerHTML={{ __html: problem.examples.output }} />
                 </div>
 
-                {/* <input type="file"> Choose Your File </input> */}
+                <br></br>
+                <input type="file" onChange={handleFileChange} />
+                <br></br>
+                <br></br>
                 <button onClick={submitCode}>Submit</button>
             </div>
         </>
