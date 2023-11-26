@@ -1,8 +1,10 @@
-package com.example.springbootbackend.components;
+package com.example.springbootbackend.controllers;
 
 import java.io.IOException;
 
 import com.example.springbootbackend.Test.RunShellScript;
+import com.example.springbootbackend.services.SubmissionService;
+
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -24,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 public class SubmissionController {
     
-    private RunShellScript runShellScript = new RunShellScript();
+    private SubmissionService submissionService = new SubmissionService();
 
     @GetMapping("/")
     public ResponseEntity<String> hello(){
@@ -38,18 +40,7 @@ public class SubmissionController {
             return new ResponseEntity<>("Please select a file to upload", HttpStatus.BAD_REQUEST);
         }
 
-        try{
-            byte[] fileBytes = file.getBytes();
-            String fileContent = new String(fileBytes);
-
-            runShellScript.execute();
-
-            return new ResponseEntity<>("Processed File", HttpStatus.OK);
-
-        } catch(IOException e){
-            e.printStackTrace();
-            return new ResponseEntity<>("Error processing the file", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return submissionService.submitFile(file);
     }
 
 }
