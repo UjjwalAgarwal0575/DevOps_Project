@@ -1,17 +1,61 @@
-# initMem=${7500}
-# g++ -o solution solution.cpp &> $1 
 
-# && {
-            # {
-            #     cat testcase.txt | /usr/bin/time -f "%e %M" -o $3 timeout $4s ./solution &> $2
-            #     # cat testcase.txt | ts=$(date +%s%N) -o $3 timeout $4s ./solution tt=$((($(date +%s%N) - $ts)/1000000)) ; echo "Time taken: $tt milliseconds"
-            # } || {
-            #     RTE=1
-            # }
-            # }
 
-g++ -o solution $1 &> $2 && {
-    {
-        cat $3 | ./solution &> $2
-    } 
-}
+# g++ -o solution $1 &> $2 && {
+#     {
+#         cat $3 | ./solution &> $2
+#     } 
+# }
+
+# !/bin/bash
+
+# arg1 = filetype, arg2 = filename, arg3 = output.txt, arg4 = testcase.txt
+lang=$1
+# CE = 0
+# RTE = 0
+
+if [ $lang = "c" ]
+then {
+        
+        gcc -o solution $2 &> $3 && {
+            {
+                cat $4 | ./solution &> $3
+            } || {
+                RTE=1
+            }
+        }
+    } || {
+        CE=1
+    }
+elif [ $lang = "cpp" ]
+then {
+        g++ -o solution $2 &> $3 && {
+            {
+                cat $4 | ./solution &> $3
+            } || {
+                RTE=1
+            }
+        }
+    } || {
+
+        CE=1
+    }
+elif [ $lang = "java" ]
+then {
+        javac $2 &> $3 && {
+            {
+                cat $4 | java solution &> $3
+            } || {
+                RTE=1
+            }
+        }
+    } || {
+        CE=1
+    }
+elif [ $lang = "py" ]
+then {
+        cat $4 | python3 solution.py &> $3
+    } || {
+        RTE=1
+    }
+fi
+
