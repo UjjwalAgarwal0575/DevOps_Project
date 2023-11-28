@@ -15,8 +15,10 @@ public class RunShellScript {
         try {
             // Provide the path to your .sh script
             String curDir = System.getProperty("user.dir");
-            String scriptPath = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
-            String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
+            // String scriptPath = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
+            String scriptPath = curDir + "/run.sh";
+            // String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
+            String filePath = curDir + "/";
 
 
             // Extract fileName and extension to use respective shell command
@@ -24,19 +26,20 @@ public class RunShellScript {
             String fileName = file.getOriginalFilename();
 
             System.out.println("Filename: " + fileName);
-            
-
-            // Need to pass id of the question here as well to evaluate against specific test cases
-            // Additional arguments to pass to the script
-            String arg1 = filePath + fileName;
-            String arg2 = filePath + "output1.txt";
-            String arg3 = filePath + "test1.txt";
-            
-
             // Split fileName into two parts
             String[] splits = fileName.split("\\.", 2);
             String fileType = splits[1];
             byte[] fileContent = file.getBytes();
+            
+
+            // Need to pass id of the question here as well to evaluate against specific test cases
+            // Additional arguments to pass to the script
+            String arg1 = fileType;
+            String arg2 = filePath + fileName;
+            String arg3 = filePath + "output1.txt";
+            String arg4 = filePath + "test1.txt";
+            
+
 
             System.out.println("Contents: " + fileContent);
 
@@ -50,7 +53,7 @@ public class RunShellScript {
 
 
             // Create ProcessBuilder with command and arguments
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath, arg1, arg2, arg3);
+            ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath, arg1, arg2, arg3, arg4);
             System.out.println(processBuilder.command());
 
             // Redirect error stream to output stream
