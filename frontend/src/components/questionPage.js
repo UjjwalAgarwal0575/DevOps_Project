@@ -24,9 +24,10 @@ function QuestionPage(props) {
                     baseURL: 'http://localhost:8082', // Update with your backend container name and port
                 });
 
-                const response = await axiosInstance.post('/api/submit-file', formData, {
+                const response = await axiosInstance.get('/api/get-data', {
                   headers: {
-                    'Content-Type': 'multipart/form-data',
+                    // 'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                   },
                 });
           
