@@ -29,21 +29,21 @@ const AddQuestion = () => {
 
         e.preventDefault();
 
+        const id = document.getElementById("id").value;
         const title = document.getElementById("title").value;
         const problemStatement = document.getElementById("problemStatement").value;
         const constraints = document.getElementById("constraints").value;
         const tag = document.getElementById("tag").value;
 
-        const questionData = {title, problemStatement, constraints, tag};
+        const questionData = {id, title, problemStatement, constraints, tag};
+        console.log(id);
         console.log(title);
         console.log(problemStatement);
         console.log(constraints);
         console.log(tag);
 
-
+        // save the question
         try {
-            const formData = new FormData();
-            formData.append('questionData', questionData);
 
             const response = await axios.post('http://localhost:8082/api/add-question', questionData, {
               headers: {
@@ -51,12 +51,33 @@ const AddQuestion = () => {
                 'Content-Type': 'application/json',
               },
             });
-      
             console.log('API Response:', response.data);
         } 
         catch (error) {
             console.error('Error adding question:', error);
         }
+
+
+
+        // // somehow get the question Id
+        // const testCasesData = {id, testCases}; 
+        
+        // // save the testCases
+        // try {
+
+        //     const response2 = await axios.post('http://localhost:8082/api/add-testcases', testCasesData, {
+        //       headers: {
+        //         // 'Content-Type': 'multipart/form-data',
+        //         'Content-Type': 'application/json',
+        //       },
+        //     });
+      
+        //     console.log('API Response:', response2.data);
+        // } 
+        // catch (error) {
+        //     console.error('Error adding question:', error);
+        // }
+
     }
 
 
@@ -73,6 +94,8 @@ const AddQuestion = () => {
             <form onSubmit={addNewQuestion}>
                 <div className='add-question-form'>
 
+                    <label htmlFor="title">Id:</label>
+                    <input type="text" id="id" name="id" required />
 
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" name="title" required />

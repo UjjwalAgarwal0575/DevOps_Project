@@ -13,13 +13,16 @@ import lombok.NoArgsConstructor;
 @Document(collection = "questions")
 public class Question {
     
+    @Id
+    private String id;
     private String title;
     private String problemStatement;
     private String constraints;
     private String tag;
 
 
-    public Question(String title, String problemStatement, String constraints, String tag){
+    public Question(String id, String title, String problemStatement, String constraints, String tag){
+        this.id = id;
         this.title = title;
         this.problemStatement = problemStatement;
         this.constraints = constraints;
