@@ -1,0 +1,13 @@
+---
+- name: Deploy docker images
+  hosts: localhost
+
+  tasks:
+    - name: Copy Docker Compose file from host machine to remote host
+      copy:
+        src: ../docker-compose.yml
+        dest: ./
+        
+    - name: Run the pulled Docker images in detached mode
+      command: docker-compose up -d --build
+
