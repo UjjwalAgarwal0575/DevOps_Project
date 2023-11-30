@@ -48,10 +48,10 @@ public class SubmissionController {
     }
 
 
-    @GetMapping("/")
-    public ResponseEntity<String> hello(){
-        return new ResponseEntity<>("Connected!", HttpStatus.OK);
-    }
+    // @GetMapping("/")
+    // public ResponseEntity<String> hello(){
+    //     return new ResponseEntity<>("Connected!", HttpStatus.OK);
+    // }
 
     @PostMapping("/submit-file")
     public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file){
