@@ -25,7 +25,10 @@ const AddQuestion = () => {
 
 
     // Add the question to database
-    async function addNewQuestion(){
+    const addNewQuestion = async (e) => {
+
+        e.preventDefault();
+
         const title = document.getElementById("title").value;
         const problemStatement = document.getElementById("problemStatement").value;
         const constraints = document.getElementById("constraints").value;
@@ -63,7 +66,7 @@ const AddQuestion = () => {
 
             <header>
                 <h1>AceCoder</h1>
-                <a href="#" class="profile-button">Profile</a>
+                <a href="#" className="profile-button">Profile</a>
             </header>
 
 
@@ -71,19 +74,19 @@ const AddQuestion = () => {
                 <div className='add-question-form'>
 
 
-                    <label for="title">Title:</label>
+                    <label htmlFor="title">Title:</label>
                     <input type="text" id="title" name="title" required />
 
-                    <label for="problemStatement">Problem Statement:</label>
+                    <label htmlFor="problemStatement">Problem Statement:</label>
                     <textarea id="problemStatement" name="problemStatement" rows="4" required></textarea>
 
-                    <label for="constraints">Constraints:</label>
+                    <label htmlFor="constraints">Constraints:</label>
                     <textarea id="constraints" name="constraints" rows="2" required></textarea>
 
 
                     <br></br>
 
-                    <label for="tag">Tag:</label>
+                    <label htmlFor="tag">Tag:</label>
                     <select id="tag" name="tag">
                         <option value="Greedy">Greedy</option>
                         <option value="Implementation">Implementation</option>

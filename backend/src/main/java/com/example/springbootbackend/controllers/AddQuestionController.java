@@ -22,8 +22,7 @@ public class AddQuestionController {
     private QuestionRepo questionRepo;
 
     @PostMapping("/add-question")
-    public Question saveQuestion(@RequestBody String title, String problemStatement, String constraints, String tag){
-        Question question = new Question(title, problemStatement, constraints, tag);
+    public Question saveQuestion(@RequestBody Question question){
         return questionRepo.save(question);
     }
 
