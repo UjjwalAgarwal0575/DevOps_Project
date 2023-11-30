@@ -31,29 +31,29 @@ const AddQuestion = () => {
         const constraints = document.getElementById("constraints").value;
         const tag = document.getElementById("tag").value;
 
-        const questionData = {title, problemStatement, constraints, tag}
+        const questionData = {title, problemStatement, constraints, tag};
         console.log(title);
         console.log(problemStatement);
         console.log(constraints);
         console.log(tag);
 
 
-        // try {
-        //     const formData = new FormData();
-        //     formData.append('questionData', questionData);
+        try {
+            const formData = new FormData();
+            formData.append('questionData', questionData);
 
-        //     const response = await axios.post('http://localhost:8082/api/', formData, {
-        //       headers: {
-        //         // 'Content-Type': 'multipart/form-data',
-        //         'Content-Type': 'application/json',
-        //       },
-        //     });
+            const response = await axios.post('http://localhost:8082/api/add-question', questionData, {
+              headers: {
+                // 'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
+              },
+            });
       
-        //     console.log('API Response:', response.data);
-        // } 
-        // catch (error) {
-        //     console.error('Error adding question:', error);
-        // }
+            console.log('API Response:', response.data);
+        } 
+        catch (error) {
+            console.error('Error adding question:', error);
+        }
     }
 
 
@@ -67,7 +67,7 @@ const AddQuestion = () => {
             </header>
 
 
-            <form action="" method="post">
+            <form onSubmit={addNewQuestion}>
                 <div className='add-question-form'>
 
 
@@ -135,7 +135,7 @@ const AddQuestion = () => {
                 <br></br>
 
                 <div className='add-question-button'>
-                    <button onClick={addNewQuestion} type="submit">Submit</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
         </div>
