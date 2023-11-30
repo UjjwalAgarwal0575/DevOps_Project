@@ -43,7 +43,7 @@ function QuestionPage(props) {
 
         <>
             <header>
-                <h1>SpeedCoder</h1>
+                <h1>AceCoder</h1>
                 <a href="#" class="profile-button">Profile</a>
             </header>
             <div class="problem-statement">
