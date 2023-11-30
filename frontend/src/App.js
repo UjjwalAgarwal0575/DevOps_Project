@@ -7,6 +7,7 @@ import {
 import './App.css';
 import Dashboard from './Dashboard';
 import QuestionPage from './components/questionPage';
+import AddQuestion from './components/addQuestion';
 
 
 
@@ -73,6 +74,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Dashboard problems={problems}/>} />
+          <Route path="/add-question" element={<AddQuestion />} />
           <Route path="/question-page/1" element={<QuestionPage problem={problem1}/>} />
           <Route path="/question-page/2" element={<QuestionPage problem={problem2}/>} />
           <Route path="/question-page/3" element={<QuestionPage problem={problem3}/>} />
