@@ -1,12 +1,13 @@
 version: "3"
 services:
-  database:
-    image: mongo:latest
-    container_name: "mongo-container"
-    ports:
-      - 27017:27017
-    networks:
-      - my-network
+  # database:
+  #   image: mongo:latest
+  #   restart: always
+  #   container_name: "mongo-container"
+  #   ports:
+  #     - 27017:27017
+  #   networks:
+  #     - my-network
 
   backend:
     # image: ujjwalagarwal0575/backend-image
