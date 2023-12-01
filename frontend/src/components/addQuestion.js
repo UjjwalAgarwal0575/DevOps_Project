@@ -4,10 +4,10 @@ import axios from 'axios';
 const AddQuestion = () => {
 
 
-    const [testCases, setTestCases] = useState([{ input: '', output: '' }]);
+    const [testCases, setTestCases] = useState([{ 'input': '', 'output': '' }]);
 
     const addTestCase = () => {
-      setTestCases([...testCases, { input: '', output: '' }]);
+      setTestCases([...testCases, { 'input': '', 'output': '' }]);
     };
   
     const removeTestCase = (index) => {
@@ -29,14 +29,14 @@ const AddQuestion = () => {
 
         e.preventDefault();
 
-        const id = document.getElementById("id").value;
+        const questionId = document.getElementById("id").value;
         const title = document.getElementById("title").value;
         const problemStatement = document.getElementById("problemStatement").value;
         const constraints = document.getElementById("constraints").value;
         const tag = document.getElementById("tag").value;
 
-        const questionData = {id, title, problemStatement, constraints, tag};
-        console.log(id);
+        const questionData = {questionId, title, problemStatement, constraints, tag};
+        // console.log(id);
         console.log(title);
         console.log(problemStatement);
         console.log(constraints);
@@ -60,23 +60,41 @@ const AddQuestion = () => {
 
 
         // // somehow get the question Id
-        // const testCasesData = {id, testCases}; 
-        
-        // // save the testCases
-        // try {
 
-        //     const response2 = await axios.post('http://localhost:8082/api/add-testcases', testCasesData, {
-        //       headers: {
-        //         // 'Content-Type': 'multipart/form-data',
-        //         'Content-Type': 'application/json',
-        //       },
-        //     });
+        // stringfy all the json data
+
+        testCases.forEach((testCase, index) => {
+            try {
+                // Parse each JSON string into a JavaScript object
+                console.log("Json String: ", testCase);
+                let jsonObject = JSON.stringify(testCase);
+        
+                // Update the array with the parsed object
+                testCases[index] = jsonObject;
+        
+                console.log(`Successfully parsed element at index ${index}:`, jsonObject);
+            } catch (error) {
+                console.error(`Error parsing element at index ${index}:`, error.message);
+            }
+        });
+
+        const testCasesData = {questionId, testCases}; 
+        
+        // save the testCases
+        try {
+
+            const response2 = await axios.post('http://localhost:8082/api/add-testcases', testCasesData, {
+              headers: {
+                // 'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
+              },
+            });
       
-        //     console.log('API Response:', response2.data);
-        // } 
-        // catch (error) {
-        //     console.error('Error adding question:', error);
-        // }
+            console.log('API Response:', response2.data);
+        } 
+        catch (error) {
+            console.error('Error adding question:', error);
+        }
 
     }
 

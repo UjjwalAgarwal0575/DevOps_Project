@@ -41,6 +41,7 @@ public class SubmissionController {
         System.out.println(user);
         return userRepo.save(user);
     }
+    
 
     @GetMapping("/get-data")
     public List<User> getUsers(){
@@ -48,10 +49,10 @@ public class SubmissionController {
     }
 
 
-    // @GetMapping("/")
-    // public ResponseEntity<String> hello(){
-    //     return new ResponseEntity<>("Connected!", HttpStatus.OK);
-    // }
+    @GetMapping("/")
+    public ResponseEntity<String> hello(){
+        return new ResponseEntity<>("Connected!", HttpStatus.OK);
+    }
 
     @PostMapping("/submit-file")
     public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file){

@@ -17,17 +17,13 @@ import com.example.springbootbackend.database.QuestionRepo;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class AddQuestionController {
     
     @Autowired
     private QuestionRepo questionRepo;
 
-    @GetMapping("/")
-    public ResponseEntity<String> hello(){
-        return new ResponseEntity<>("Connected!", HttpStatus.OK);
-    }
-
+    
     @PostMapping("/add-question")
     public Question saveQuestion(@RequestBody Question question){
         return questionRepo.save(question);

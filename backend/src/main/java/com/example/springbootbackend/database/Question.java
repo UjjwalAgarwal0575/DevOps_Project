@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-// @AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "questions")
 public class Question {
@@ -21,14 +21,14 @@ public class Question {
     private String tag;
 
 
-    public Question(String id, String title, String problemStatement, String constraints, String tag){
-        this.id = id;
-        this.title = title;
-        this.problemStatement = problemStatement;
-        this.constraints = constraints;
-        this.tag = tag;
-    }
-    // public String getId(){
+    // public Question(String id, String title, String problemStatement, String constraints, String tag){
+    //     this.id = id;
+    //     this.title = title;
+    //     this.problemStatement = problemStatement;
+    //     this.constraints = constraints;
+    //     this.tag = tag;
+    // }
+    // // public String getId(){
     //     return this.id;
     // }
 
