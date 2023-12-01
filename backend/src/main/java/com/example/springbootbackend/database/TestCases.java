@@ -16,12 +16,12 @@ public class TestCases {
     
     // id of the question
     private String questionId;
-    private List<TestCase> testCases;
+    private TestCase testCases;
 
 
-    public TestCases(String questionId, List<TestCase> testCases){
-        this.questionId = questionId;
-        this.testCases = testCases;
-    }
+    // public TestCases(String questionId, List<TestCase> testCases){
+    //     this.questionId = questionId;
+    //     this.testCases = testCases;
+    // }
 
 }

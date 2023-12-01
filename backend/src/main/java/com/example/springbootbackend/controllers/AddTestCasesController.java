@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +22,13 @@ public class AddTestCasesController {
     private TestCasesRepo testcasesRepo;
 
     @PostMapping("/add-testcases")
-    public TestCases saveTestCases(TestCases testcases){
+    public TestCases saveTestCases(@RequestBody TestCases testcases){
         return testcasesRepo.save(testcases);
     }
 
     @GetMapping("/get-testcases")
-    public List<TestCases> getTestCases(){
-        return testcasesRepo.findAll();
+    public String getTestCases(){
+        return "Connected Bro!";
+        // return testcasesRepo.findAll();
     } 
 }
