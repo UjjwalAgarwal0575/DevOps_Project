@@ -1,16 +1,17 @@
 version: "3"
 services:
-  database:
-    image: mongo:latest
-    container_name: "mongo-container"
-    ports:
-      - 27017:27017
-    networks:
-      - my-network
+  # database:
+  #   image: mongo:latest
+  #   restart: always
+  #   container_name: "mongo-container"
+  #   ports:
+  #     - 27017:27017
+  #   networks:
+  #     - my-network
 
   backend:
-    # image: ujjwalagarwal0575/backend-image
-    image: backend
+    image: ujjwalagarwal0575/backend-image
+    # image: backend
     container_name: backend-container
     ports:
       - 8082:8082
@@ -18,8 +19,8 @@ services:
       - my-network
 
   frontend:
-    # image: ujjwalagarwal0575/frontend-image
-    image: frontend
+    image: ujjwalagarwal0575/frontend-image
+    # image: frontend
     container_name: frontend-container
     ports:
       - "3000:3000"
