@@ -27,8 +27,8 @@ public class AddTestCasesController {
     }
 
     @GetMapping("/get-testcases")
-    public String getTestCases(){
-        return "Connected Bro!";
-        // return testcasesRepo.findAll();
+    public List<TestCases> getTestCases(){
+        // return "Connected Bro!";
+        return testcasesRepo.findAll();
     } 
 }

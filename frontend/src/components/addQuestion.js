@@ -60,23 +60,23 @@ const AddQuestion = () => {
 
 
         // // somehow get the question Id
-        // const testCasesData = {id, testCases}; 
+        const testCasesData = {id, testCases}; 
         
-        // // save the testCases
-        // try {
+        // save the testCases
+        try {
 
-        //     const response2 = await axios.post('http://localhost:8082/api/add-testcases', testCasesData, {
-        //       headers: {
-        //         // 'Content-Type': 'multipart/form-data',
-        //         'Content-Type': 'application/json',
-        //       },
-        //     });
+            const response2 = await axios.post('http://localhost:8082/api/add-testcases', testCasesData, {
+              headers: {
+                // 'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
+              },
+            });
       
-        //     console.log('API Response:', response2.data);
-        // } 
-        // catch (error) {
-        //     console.error('Error adding question:', error);
-        // }
+            console.log('API Response:', response2.data);
+        } 
+        catch (error) {
+            console.error('Error adding question:', error);
+        }
 
     }
 
