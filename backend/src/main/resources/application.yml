@@ -4,3 +4,4 @@ spring:
       database: User
       host: mongo-container
       port: 27017
+
