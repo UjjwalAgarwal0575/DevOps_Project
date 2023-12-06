@@ -64,15 +64,15 @@ function QuestionPage(props) {
             try {
                 const formData = new FormData();
                 formData.append('file', selectedCodeFile);
+                formData.append('questionId', id);
 
                 const axiosInstance = axios.create({
                     baseURL: 'http://localhost:8082', // Update with your backend container name and port
                 });
 
-                const response = await axiosInstance.get('/api/get-data', {
+                const response = await axiosInstance.post('/api/submit-file', formData, {
                     headers: {
-                        // 'Content-Type': 'multipart/form-data',
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
                     },
                 });
 

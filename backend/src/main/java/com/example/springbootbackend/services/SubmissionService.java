@@ -25,13 +25,14 @@ public class SubmissionService {
 
     private RunShellScript runShellScript = new RunShellScript();
 
-    public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("questionId") String questionId){
 
         try{
+            System.out.println("At submission service! Going to RubShellScript : " + questionId);
             byte[] fileBytes = file.getBytes();
             // String fileContent = new String(fileBytes);
 
-            runShellScript.execute(file);
+            runShellScript.execute(file, questionId);
             return new ResponseEntity<>("Processed File", HttpStatus.OK);
         
         } catch(IOException e){

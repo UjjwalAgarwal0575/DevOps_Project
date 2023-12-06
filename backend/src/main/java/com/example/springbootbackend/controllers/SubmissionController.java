@@ -55,13 +55,14 @@ public class SubmissionController {
     }
 
     @PostMapping("/submit-file")
-    public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("questionId") String questionId){
 
         if (file.isEmpty()){
             return new ResponseEntity<>("Please select a file to upload", HttpStatus.BAD_REQUEST);
         }
 
-        return submissionService.submitFile(file);
+        System.out.println("At submission controller! Going to submission service " + questionId);
+        return submissionService.submitFile(file, questionId);
     }
 
 }

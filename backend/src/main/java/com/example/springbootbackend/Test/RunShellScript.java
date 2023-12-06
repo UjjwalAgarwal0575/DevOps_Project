@@ -5,12 +5,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.springbootbackend.database.TestCases;
+import com.example.springbootbackend.database.TestCasesRepo;
+
 
 public class RunShellScript {
 
-    public void execute(MultipartFile file) {
+    public void execute(MultipartFile file, String questionId) {
         System.out.println("hello");
         try {
             // Provide the path to your .sh script
@@ -37,6 +47,14 @@ public class RunShellScript {
             String arg1 = fileType;
             String arg2 = filePath + fileName;
             String arg3 = filePath + "output1.txt";
+            
+            // get the testcases for a questionId
+            // for all the testcases run this
+
+            // Optional<TestCases> testcases = testcasesRepo.findByQuestionId(questionId);
+            // System.out.println(testcases);
+
+            // {
             String arg4 = filePath + "test1.txt";
             
 
@@ -70,11 +88,14 @@ public class RunShellScript {
                 }
             }
 
+            // }
+
             // Wait for the process to finish
             int exitCode = process.waitFor();
             System.out.println("Script execution finished with exit code: " + exitCode);
 
-        } catch (IOException | InterruptedException e) {
+        } 
+        catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
