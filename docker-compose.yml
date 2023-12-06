@@ -8,10 +8,14 @@ services:
   #     - 27017:27017
   #   networks:
   #     - my-network
+  #   volumes:
+  #     - /home/ujjwal/Desktop/DevOps_Project/data:/data/db
 
+  # Shell Cmd to connect with other containers
+  #  sudo docker run --name mongo-container --network=my-network -v /home/ujjwal/Desktop/DevOps_Project/data:/data/db -p 27017:27017 -d mongo 
   backend:
-    image: ujjwalagarwal0575/backend-image
-    # image: backend
+    # image: ujjwalagarwal0575/backend-image
+    image: backend
     container_name: backend-container
     ports:
       - 8082:8082
@@ -19,8 +23,8 @@ services:
       - my-network
 
   frontend:
-    image: ujjwalagarwal0575/frontend-image
-    # image: frontend
+    # image: ujjwalagarwal0575/frontend-image
+    image: frontend
     container_name: frontend-container
     ports:
       - "3000:3000"
@@ -29,4 +33,5 @@ services:
       
 networks:
   my-network:
+    external: true
     driver: bridge
