@@ -1,10 +1,55 @@
-import { react, useState } from 'react';
+import { react, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function QuestionPage(props) {
 
-    const problem = props.problem;
+    const { id } = useParams();
+    const problemId = `problem${id}`;
+    const problem = props.problems[problemId];
+
+    console.log("problemId: ", problemId);
+    console.log("problem: ", problem);
+
+    const [sampleInput, setSampleInput] = useState("");
+    const [sampleOutput, setSampleOutput] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     const [selectedCodeFile, setSelectedCodeFile] = useState(null);
+
+    // get first testcase from the database
+    
+    useEffect(() => {
+
+        setLoading(false);
+
+        axios.get(`http://localhost:8082/api/get-testcase-by-id/${problem.questionId}`)
+        .then((response) => {
+            // console.log("Testcases by specific id: ", response);
+            // console.log("A Testcase: ", response.data.testCases[0]);
+            // console.log("JSON Testcase: ", JSON.parse(response.data.testCases[0]));
+            var inputoutput = JSON.parse(response.data.testCases[0]);
+            setSampleInput(inputoutput.input);
+            setSampleOutput(inputoutput.output);
+            setLoading(false);
+        })
+        .catch(error => {
+            setError(error);
+            setLoading(false);
+        });
+    
+      }, []);
+
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
+
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -15,7 +60,7 @@ function QuestionPage(props) {
     const submitCode = async () => {
         if (!selectedCodeFile) {
             alert("Please select a file to upload!");
-        }else {
+        } else {
             try {
                 const formData = new FormData();
                 formData.append('file', selectedCodeFile);
@@ -25,16 +70,16 @@ function QuestionPage(props) {
                 });
 
                 const response = await axiosInstance.get('/api/get-data', {
-                  headers: {
-                    // 'Content-Type': 'multipart/form-data',
-                    'Content-Type': 'application/json',
-                  },
+                    headers: {
+                        // 'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'application/json',
+                    },
                 });
-          
+
                 console.log('API Response:', response.data);
-              } catch (error) {
+            } catch (error) {
                 console.error('Error uploading file:', error);
-              }
+            }
         }
     }
 
@@ -43,13 +88,13 @@ function QuestionPage(props) {
 
         <>
             <header>
-                <h1>SpeedCoder</h1>
+                <h1>AceCoder</h1>
                 <a href="#" class="profile-button">Profile</a>
             </header>
             <div class="problem-statement">
 
                 <div class="problem-title">
-                    <h3>Problem {problem.id}: {problem.title} </h3>
+                    <h3>Problem {problem.questionId}: {problem.title} </h3>
                 </div>
                 <br></br>
                 <br></br>
@@ -64,9 +109,9 @@ function QuestionPage(props) {
                 </div>
                 <div class="input-output" >
                     <div><strong>Input:</strong></div>
-                    <code dangerouslySetInnerHTML={{ __html: problem.examples.input }} />
+                    <code dangerouslySetInnerHTML={{ __html: sampleInput }} />
                     <div><strong>Output:</strong></div>
-                    <code dangerouslySetInnerHTML={{ __html: problem.examples.output }} />
+                    <code dangerouslySetInnerHTML={{ __html: sampleOutput }} />
                 </div>
 
                 <br></br>

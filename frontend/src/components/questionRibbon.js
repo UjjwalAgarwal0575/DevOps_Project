@@ -17,9 +17,9 @@ function QuestionRibbon(props){
     }
 
     function openProblem(){
-        const id = props.problem.id;
+        const id = props.problem.questionId;
 
-        const path = '/question-page/' + props.problem.id;
+        const path = '/question-page/' + props.problem.questionId;
         routeChange(path);
     }
 
@@ -29,7 +29,7 @@ function QuestionRibbon(props){
 
     return (
         <div class="problem" onClick={openProblem} style={{backgroundColor: bgColor}}>
-            <div class="problem-title" >Problem {props.problem.id}: {props.problem.title}</div>
+            <div class="problem-title" >Problem {props.problem.questionId}: {props.problem.title}</div>
             <div class="problem-description">{sliceProblemStatement(props.problem.problemStatement)}</div>
         </div>
     );

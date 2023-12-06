@@ -26,11 +26,13 @@ public class AddQuestionController {
     
     @PostMapping("/add-question")
     public Question saveQuestion(@RequestBody Question question){
+        System.out.println("Adding question...");
         return questionRepo.save(question);
     }
 
     @GetMapping("/get-questions")
     public List<Question> getQuestions(){
+        System.out.println("Getting question...");
         return questionRepo.findAll();
     }
 

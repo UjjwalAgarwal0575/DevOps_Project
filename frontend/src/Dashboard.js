@@ -9,9 +9,6 @@ import './App.css';
 import QuestionPage from './components/questionPage';
 
 
-
-
-
 function Dashboard(props) {
 
   const problems = props.problems;
@@ -25,21 +22,19 @@ function Dashboard(props) {
 
       <h2 className='problem-section'> Introductory Problems </h2>
       <div class="problem-list">
-        <QuestionRibbon problem={problems.problem1} />
-        <QuestionRibbon problem={problems.problem2} />
-        <QuestionRibbon problem={problems.problem3} />
-        <QuestionRibbon problem={problems.problem4} />
-        <QuestionRibbon problem={problems.problem5} />
+        {Object.entries(problems).map(([key, value]) => (
+          <QuestionRibbon problem={value} />
+        ))}
       </div>
 
-
+{/* 
       <h2 className='problem-section'>Sorting and Searching</h2>
       <div class="problem-list">
         <QuestionRibbon problem={problems.problem6} />
         <QuestionRibbon problem={problems.problem7} />
         <QuestionRibbon problem={problems.problem8} />
-        {/* <QuestionRibbon problem={problems.problem9} />
-        <QuestionRibbon problem={problems.problem10} /> */}
+        <QuestionRibbon problem={problems.problem9} />
+        <QuestionRibbon problem={problems.problem10} />
       </div>
 
       <h2 className='problem-section'>Dynamic Programming</h2>
@@ -47,8 +42,8 @@ function Dashboard(props) {
         <QuestionRibbon problem={problems.problem11} />
         <QuestionRibbon problem={problems.problem12} />
         <QuestionRibbon problem={problems.problem13} />
-        {/* <QuestionRibbon problem={problems.problem14} />
-        <QuestionRibbon problem={problems.problem15} /> */}
+        <QuestionRibbon problem={problems.problem14} />
+        <QuestionRibbon problem={problems.problem15} />
       </div>
 
       <h2 className='problem-section'>Graph Algorithms </h2>
@@ -56,10 +51,10 @@ function Dashboard(props) {
         <QuestionRibbon problem={problems.problem16} />
         <QuestionRibbon problem={problems.problem17} />
         <QuestionRibbon problem={problems.problem18} />
-        {/* <QuestionRibbon problem={problems.problem19} />
-        <QuestionRibbon problem={problems.problem20} /> */}
+        <QuestionRibbon problem={problems.problem19} />
+        <QuestionRibbon problem={problems.problem20} />
       </div>
-
+ */}
 
       {/* <h2 className='problem-section'> Trees </h2>
       <div class="problem-list">
