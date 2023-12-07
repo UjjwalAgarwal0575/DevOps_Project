@@ -1,12 +1,15 @@
 package com.example.springbootbackend.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.springbootbackend.Test.RunShellScript;
 import com.example.springbootbackend.database.User;
 import com.example.springbootbackend.database.UserRepo;
 import com.example.springbootbackend.services.SubmissionService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +58,26 @@ public class SubmissionController {
     }
 
     @PostMapping("/submit-file")
-    public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("questionId") String questionId){
+    public ResponseEntity<List<String>> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("testcase") String testcaseJson){
 
         if (file.isEmpty()){
-            return new ResponseEntity<>("Please select a file to upload", HttpStatus.BAD_REQUEST);
+            List<String> resultArray = new ArrayList<>();
+            return new ResponseEntity<>(resultArray, HttpStatus.BAD_REQUEST);
+        }
+        
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<List<String>> testcase = objectMapper.readValue(testcaseJson, new TypeReference<List<List<String>>>() {});
+            
+            System.out.println("At submission controller! Going to submission service " + testcase);
+            return submissionService.submitFile(file, testcase);
+
+        }catch(IOException e){
+            e.printStackTrace(); // You might want to log the exception
+            List<String> resultArray = new ArrayList<>();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultArray);
         }
 
-        System.out.println("At submission controller! Going to submission service " + questionId);
-        return submissionService.submitFile(file, questionId);
     }
 
 }

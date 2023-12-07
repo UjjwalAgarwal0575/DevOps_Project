@@ -13,26 +13,42 @@ function QuestionPage(props) {
 
     const [sampleInput, setSampleInput] = useState("");
     const [sampleOutput, setSampleOutput] = useState("");
+    const [testcase, setTestcase] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [resultArray, setResultArray] = useState([]);
+    const [displayResult, setDisplayResult] = useState(false);
 
     const [selectedCodeFile, setSelectedCodeFile] = useState(null);
 
     // get first testcase from the database
+
     
     useEffect(() => {
-
+        
         setLoading(false);
-
+        
         axios.get(`http://localhost:8082/api/get-testcase-by-id/${problem.questionId}`)
         .then((response) => {
             // console.log("Testcases by specific id: ", response);
             // console.log("A Testcase: ", response.data.testCases[0]);
             // console.log("JSON Testcase: ", JSON.parse(response.data.testCases[0]));
-            var inputoutput = JSON.parse(response.data.testCases[0]);
-            setSampleInput(inputoutput.input);
-            setSampleOutput(inputoutput.output);
+            
+            var testcaseArray = [];
+            for (var index=0; index<response.data.testCases.length ;index++){
+                var inputoutput = JSON.parse(response.data.testCases[index]);
+                
+                testcaseArray.push([inputoutput.input, inputoutput.output]);
+            }
+
+            console.log(testcaseArray);
+            
+            setSampleInput(testcaseArray[0][0]);
+            setSampleOutput(testcaseArray[0][1]);
+            setTestcase(testcaseArray);
+            
             setLoading(false);
+            // console.log(testcase);
         })
         .catch(error => {
             setError(error);
@@ -64,7 +80,7 @@ function QuestionPage(props) {
             try {
                 const formData = new FormData();
                 formData.append('file', selectedCodeFile);
-                formData.append('questionId', id);
+                formData.append('testcase', JSON.stringify(testcase));
 
                 const axiosInstance = axios.create({
                     baseURL: 'http://localhost:8082', // Update with your backend container name and port
@@ -77,6 +93,8 @@ function QuestionPage(props) {
                 });
 
                 console.log('API Response:', response.data);
+                setResultArray(response.data);
+                setDisplayResult(true);
             } catch (error) {
                 console.error('Error uploading file:', error);
             }
@@ -119,6 +137,17 @@ function QuestionPage(props) {
                 <br></br>
                 <br></br>
                 <button onClick={submitCode}>Submit</button>
+            </div>
+
+            <div class="problem-statement">
+            <h2>Results</h2>
+            {displayResult && 
+                <ul>
+                {Object.entries(resultArray).map(([key, value]) => (
+                    <li>{value}</li>    
+                    ))}
+                </ul>
+            } 
             </div>
         </>
 
