@@ -206,6 +206,23 @@ input[type="checkbox"] {
   margin-bottom: 12px;
 }
 
+
+.Passed{
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  transition: background-color 0.3s;
+  background-color: rgb(120, 249, 120);
+  cursor: pointer;
+}
+
+.Failed{
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  transition: background-color 0.3s;
+  background-color: rgb(242, 71, 71);
+  cursor: pointer;
+}
+
 /* button {
   background-color: #4caf50;
   color: #fff;

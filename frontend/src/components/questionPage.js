@@ -143,8 +143,8 @@ function QuestionPage(props) {
             <h2>Results</h2>
             {displayResult && 
                 <ul>
-                {Object.entries(resultArray).map(([key, value]) => (
-                    <li>{value}</li>    
+                    {Object.entries(resultArray).map(([key, value]) => (
+                        <li className={value}>{value}</li>    
                     ))}
                 </ul>
             } 
