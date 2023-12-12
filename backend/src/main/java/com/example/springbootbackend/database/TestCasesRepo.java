@@ -7,5 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface TestCasesRepo extends MongoRepository<TestCases, String>{
 
     Optional<TestCases> findByQuestionId(String questionId);
+    void deleteByQuestionId(String questionId);
 
 }
