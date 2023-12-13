@@ -10,7 +10,8 @@ docker rmi frontend
 docker rmi backend
 
 # Run MongoDB container
-docker run -d --network=devops_project_my-network --name=mongo-container -v /home/amar/Documents/Sem7/SPE/DevOps_Project/data:/data/db  -p 27017:27017 mongo
+# docker run -d --network=devops_project_my-network --name=mongo-container -v /home/amar/Documents/Sem7/SPE/DevOps_Project/data:/data/db  -p 27017:27017 mongo
+docker run -d --network=my-network --name=mongo-container -v /home/amar/Documents/Sem7/SPE/DevOps_Project/data:/data/db  -p 27017:27017 mongo
 
 cd backend 
 mvn clean install

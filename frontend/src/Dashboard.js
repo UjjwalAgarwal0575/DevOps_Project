@@ -20,7 +20,7 @@ function Dashboard(props) {
         <a href="#" class="profile-button">Profile</a>
       </header>
 
-      <h2 className='problem-section'> Introductory Problems </h2>
+      <h2 className='problem-section'> Practice Problems </h2>
       <div class="problem-list">
         {Object.entries(problems).map(([key, value]) => (
           <QuestionRibbon problem={value} />

@@ -1,0 +1,220 @@
+2023-12-13T18:34:51.786+05:30  INFO 111069 --- [main] c.e.s.SpringbootBackendApplicationTests  : Starting SpringbootBackendApplicationTests using Java 17.0.9 with PID 111069 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T18:34:51.792+05:30  INFO 111069 --- [main] c.e.s.SpringbootBackendApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T18:34:55.253+05:30  INFO 111069 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T18:34:55.811+05:30  INFO 111069 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 542 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T18:34:57.669+05:30  INFO 111069 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@6eb089e6, com.mongodb.Jep395RecordCodecProvider@715a70e9]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T18:34:58.020+05:30  INFO 111069 --- [cluster-ClusterId{value='6579abf92b66166a315f8ae8', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:801) ~[na:na]
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:887) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T18:35:00.756+05:30  INFO 111069 --- [main] c.e.s.SpringbootBackendApplicationTests  : Started SpringbootBackendApplicationTests in 10.238 seconds (process running for 15.098)
+2023-12-13T18:35:00.765+05:30  INFO 111069 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T18:35:00.767+05:30  WARN 111069 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T18:35:00.768+05:30 ERROR 111069 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
+2023-12-13T18:35:03.314+05:30  INFO 111069 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.springbootbackend.SubmissionControllerTest]: SubmissionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-13T18:35:03.367+05:30  INFO 111069 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.springbootbackend.SpringbootBackendApplication for test class com.example.springbootbackend.SubmissionControllerTest
+2023-12-13T18:35:04.715+05:30  INFO 111069 --- [main] c.e.s.SubmissionControllerTest           : Starting SubmissionControllerTest using Java 17.0.9 with PID 111069 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T18:35:04.718+05:30  INFO 111069 --- [main] c.e.s.SubmissionControllerTest           : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T18:35:05.855+05:30  INFO 111069 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T18:35:05.928+05:30  INFO 111069 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T18:35:07.916+05:30  INFO 111069 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2023-12-13T18:35:07.949+05:30  INFO 111069 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-13T18:35:07.952+05:30  INFO 111069 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-12-13T18:35:08.364+05:30  INFO 111069 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-13T18:35:08.366+05:30  INFO 111069 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3624 ms
+2023-12-13T18:35:08.623+05:30  INFO 111069 --- [cluster-ClusterId{value='6579ac042b66166a315f8ae9', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:801) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T18:35:08.625+05:30  INFO 111069 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@6eb089e6, com.mongodb.Jep395RecordCodecProvider@715a70e9]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T18:35:09.228+05:30  INFO 111069 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2023-12-13T18:35:09.230+05:30  INFO 111069 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-12-13T18:35:09.237+05:30  INFO 111069 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 6 ms
+2023-12-13T18:35:09.829+05:30  INFO 111069 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 36227 (http) with context path ''
+2023-12-13T18:35:09.880+05:30  INFO 111069 --- [main] c.e.s.SubmissionControllerTest           : Started SubmissionControllerTest in 5.521 seconds (process running for 24.222)
+2023-12-13T18:35:09.885+05:30  INFO 111069 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T18:35:09.886+05:30  WARN 111069 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T18:35:09.887+05:30 ERROR 111069 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
+2023-12-13T18:35:10.519+05:30  INFO 111069 --- [main] org.mongodb.driver.cluster               : Cluster description not yet available. Waiting for 30000 ms before timing out
+2023-12-13T18:43:46.620+05:30  INFO 114339 --- [main] c.e.s.SpringbootBackendApplicationTests  : Starting SpringbootBackendApplicationTests using Java 17.0.9 with PID 114339 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T18:43:46.625+05:30  INFO 114339 --- [main] c.e.s.SpringbootBackendApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T18:43:48.469+05:30  INFO 114339 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T18:43:48.931+05:30  INFO 114339 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 449 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T18:43:50.411+05:30  INFO 114339 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@35d60381, com.mongodb.Jep395RecordCodecProvider@68ab6ab0]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T18:43:50.934+05:30  INFO 114339 --- [cluster-ClusterId{value='6579ae0e0ec49e1ff144f072', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:801) ~[na:na]
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:887) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T18:43:53.094+05:30  INFO 114339 --- [main] c.e.s.SpringbootBackendApplicationTests  : Started SpringbootBackendApplicationTests in 7.551 seconds (process running for 10.666)
+2023-12-13T18:43:53.104+05:30  INFO 114339 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T18:43:53.106+05:30  WARN 114339 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T18:43:53.107+05:30 ERROR 114339 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
+2023-12-13T18:43:55.358+05:30  INFO 114339 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.springbootbackend.SubmissionControllerTest]: SubmissionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-13T18:43:55.392+05:30  INFO 114339 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.springbootbackend.SpringbootBackendApplication for test class com.example.springbootbackend.SubmissionControllerTest
+2023-12-13T18:43:56.827+05:30  INFO 114339 --- [main] c.e.s.SubmissionControllerTest           : Starting SubmissionControllerTest using Java 17.0.9 with PID 114339 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T18:43:56.829+05:30  INFO 114339 --- [main] c.e.s.SubmissionControllerTest           : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T18:43:57.822+05:30  INFO 114339 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T18:43:57.893+05:30  INFO 114339 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T18:43:58.719+05:30  INFO 114339 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2023-12-13T18:43:58.783+05:30  INFO 114339 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-13T18:43:58.785+05:30  INFO 114339 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-12-13T18:43:59.206+05:30  INFO 114339 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-13T18:43:59.209+05:30  INFO 114339 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2361 ms
+2023-12-13T18:43:59.449+05:30  INFO 114339 --- [cluster-ClusterId{value='6579ae170ec49e1ff144f073', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:801) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T18:43:59.451+05:30  INFO 114339 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@35d60381, com.mongodb.Jep395RecordCodecProvider@68ab6ab0]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T18:44:00.016+05:30  INFO 114339 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2023-12-13T18:44:00.018+05:30  INFO 114339 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-12-13T18:44:00.023+05:30  INFO 114339 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2023-12-13T18:44:00.517+05:30  INFO 114339 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 32987 (http) with context path ''
+2023-12-13T18:44:00.538+05:30  INFO 114339 --- [main] c.e.s.SubmissionControllerTest           : Started SubmissionControllerTest in 3.992 seconds (process running for 18.109)
+2023-12-13T18:44:00.541+05:30  INFO 114339 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T18:44:00.542+05:30  WARN 114339 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T18:44:00.543+05:30 ERROR 114339 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
+2023-12-13T18:44:01.212+05:30  INFO 114339 --- [main] org.mongodb.driver.cluster               : Cluster description not yet available. Waiting for 30000 ms before timing out
+2023-12-13T18:52:18.860+05:30  INFO 117541 --- [main] c.e.s.SpringbootBackendApplicationTests  : Starting SpringbootBackendApplicationTests using Java 17.0.9 with PID 117541 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T18:52:18.865+05:30  INFO 117541 --- [main] c.e.s.SpringbootBackendApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T18:52:20.800+05:30  INFO 117541 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T18:52:21.264+05:30  INFO 117541 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 453 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T18:52:22.644+05:30  INFO 117541 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@2e5e6fc4, com.mongodb.Jep395RecordCodecProvider@2785db06]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T18:52:22.914+05:30  INFO 117541 --- [cluster-ClusterId{value='6579b00eea50142d63a35304', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:801) ~[na:na]
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:887) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T18:52:25.047+05:30  INFO 117541 --- [main] c.e.s.SpringbootBackendApplicationTests  : Started SpringbootBackendApplicationTests in 7.365 seconds (process running for 10.291)
+2023-12-13T18:52:25.056+05:30  INFO 117541 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T18:52:25.058+05:30  WARN 117541 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T18:52:25.059+05:30 ERROR 117541 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
+2023-12-13T20:25:41.896+05:30  INFO 158591 --- [main] c.e.s.SpringbootBackendApplicationTests  : Starting SpringbootBackendApplicationTests using Java 17.0.9 with PID 158591 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T20:25:41.916+05:30  INFO 158591 --- [main] c.e.s.SpringbootBackendApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T20:25:45.319+05:30  INFO 158591 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T20:25:46.439+05:30  INFO 158591 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1103 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T20:25:48.260+05:30  INFO 158591 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@270a620, com.mongodb.Jep395RecordCodecProvider@41f4039e]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T20:25:48.665+05:30  INFO 158591 --- [cluster-ClusterId{value='6579c5f419a1ab71dd0fcc2a', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container: Name or service not known
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container: Name or service not known
+	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method) ~[na:na]
+	at java.base/java.net.InetAddress$PlatformNameService.lookupAllHostAddr(InetAddress.java:934) ~[na:na]
+	at java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1543) ~[na:na]
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:852) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T20:25:51.364+05:30  INFO 158591 --- [main] c.e.s.SpringbootBackendApplicationTests  : Started SpringbootBackendApplicationTests in 10.722 seconds (process running for 14.258)
+2023-12-13T20:25:51.373+05:30  INFO 158591 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T20:25:51.375+05:30  WARN 158591 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T20:25:51.376+05:30 ERROR 158591 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
+2023-12-13T20:33:34.436+05:30  INFO 163604 --- [main] c.e.s.SpringbootBackendApplicationTests  : Starting SpringbootBackendApplicationTests using Java 17.0.9 with PID 163604 (started by amar in /home/amar/Documents/Sem7/SPE/DevOps_Project/backend)
+2023-12-13T20:33:34.443+05:30  INFO 163604 --- [main] c.e.s.SpringbootBackendApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2023-12-13T20:33:36.353+05:30  INFO 163604 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2023-12-13T20:33:36.798+05:30  INFO 163604 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 432 ms. Found 3 MongoDB repository interfaces.
+2023-12-13T20:33:38.179+05:30  INFO 163604 --- [main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.9.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.1.0-13-amd64"}, "platform": "Java/Debian/17.0.9+9-Debian-1deb12u1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@5c134052, com.mongodb.Jep395RecordCodecProvider@69de5bed]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongo-container:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2023-12-13T20:33:38.677+05:30  INFO 163604 --- [cluster-ClusterId{value='6579c7cab8f8865b87a7b65f', description='null'}-mongo-container:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server mongo-container:27017
+
+com.mongodb.MongoSocketException: mongo-container
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:217) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:78) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:68) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:204) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:199) ~[mongodb-driver-core-4.9.1.jar:na]
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:159) ~[mongodb-driver-core-4.9.1.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+Caused by: java.net.UnknownHostException: mongo-container
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:801) ~[na:na]
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:887) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1385) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1306) ~[na:na]
+	at com.mongodb.ServerAddress.getSocketAddresses(ServerAddress.java:209) ~[mongodb-driver-core-4.9.1.jar:na]
+	... 6 common frames omitted
+
+2023-12-13T20:33:40.826+05:30  INFO 163604 --- [main] c.e.s.SpringbootBackendApplicationTests  : Started SpringbootBackendApplicationTests in 7.554 seconds (process running for 10.28)
+2023-12-13T20:33:40.838+05:30  INFO 163604 --- [main] c.e.s.SpringbootBackendApplication       : Spring Application Running
+2023-12-13T20:33:40.841+05:30  WARN 163604 --- [main] c.e.s.SpringbootBackendApplication       : This is a warning message
+2023-12-13T20:33:40.842+05:30 ERROR 163604 --- [main] c.e.s.SpringbootBackendApplication       : This is an error message
