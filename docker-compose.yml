@@ -10,8 +10,8 @@ services:
   #     - my-network
 
   backend:
-    # image: ujjwalagarwal0575/backend-image
-    image: backend
+    image: ujjwalagarwal0575/backend-image
+    # image: backend
     container_name: backend-container
     ports:
       - 8082:8082
@@ -19,8 +19,8 @@ services:
       - my-network
 
   frontend:
-    # image: ujjwalagarwal0575/frontend-image
-    image: frontend
+    image: ujjwalagarwal0575/frontend-image
+    # image: frontend
     container_name: frontend-container
     ports:
       - "3000:3000"
