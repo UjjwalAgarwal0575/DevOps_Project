@@ -23,7 +23,6 @@ function QuestionPage(props) {
 
     // get first testcase from the database
 
-    
     useEffect(() => {
         
         setLoading(false);
@@ -107,16 +106,16 @@ function QuestionPage(props) {
         <>
             <header>
                 <h1>AceCoder</h1>
-                <a href="#" class="profile-button">Profile</a>
+                <a href="#" className="profile-button">Profile</a>
             </header>
-            <div class="problem-statement">
+            <div className="problem-statement">
 
-                <div class="problem-title">
+                <div className="problem-title">
                     <h3>Problem {problem.questionId}: {problem.title} </h3>
                 </div>
                 <br></br>
                 <br></br>
-                <div class="problem-description">
+                <div className="problem-description">
                     <p>{problem.problemStatement}</p>
                     <p>Constraints:</p>
                     <ul>
@@ -125,7 +124,7 @@ function QuestionPage(props) {
                         {/* <li>Output: ...</li> */}
                     </ul>
                 </div>
-                <div class="input-output" >
+                <div className="input-output" >
                     <div><strong>Input:</strong></div>
                     <code dangerouslySetInnerHTML={{ __html: sampleInput }} />
                     <div><strong>Output:</strong></div>
@@ -139,7 +138,7 @@ function QuestionPage(props) {
                 <button onClick={submitCode}>Submit</button>
             </div>
 
-            <div class="problem-statement">
+            <div className="problem-statement">
             <h2>Results</h2>
             {displayResult && 
                 <ul>

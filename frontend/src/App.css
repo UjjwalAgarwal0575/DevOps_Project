@@ -1,19 +1,27 @@
 /* .App {
-  text-align: left;
-  margin-left: 10%;
-  margin-right: 10%;
+  background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fgetwallpapers.com%2Fcollection%2Fcoding-wallpapers&psig=AOvVaw0MkMAP8ADtzfb9WR5A-FkJ&ust=1705169937804000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCNjuuZ272IMDFQAAAAAdAAAAABAD);
 } */
 
 
-@media (prefers-reduced-motion: no-preference) {
+
+/* body {
+  /* background-image: url('../images/bg.jpeg'); */
+  /* background-size: cover; 
+  background-repeat: no-repeat;
+  background-attachment: fixed; This property fixes the background image while scrolling */
+  /* background-color: red; */
+/* }  */
+
+
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,20 +34,21 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 /* Problem statement page */
 
 .problem-statement {
   margin: 2% 20%;
   background-color: #ffffff;
+  /* background-color: red; */
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -70,7 +79,7 @@
 
  header {
   /* background-color: #007bff; */
-  background-color: black;
+  background-color: #000000;
   color: #fff;
   padding: 10px;
   text-align: center;
@@ -81,16 +90,16 @@
 
 .problem-list {
   max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: white;
   border-radius: 5px;
-  box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0 10px rgba(24, 10, 223, 0.1);
 }
 
 .problem {
   border-bottom: 1px solid #ddd;
-  padding: 10px;
+  padding: 10px 0px 0px 0px;
   transition: background-color 0.3s;
   cursor: pointer;
 }
@@ -114,7 +123,7 @@
 .problem-section {
   max-width: 800px;
   margin: 20px auto;
-  padding: 20px;
+  padding: 10px 0px;
   /* background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
@@ -145,6 +154,19 @@ footer {
 }
 
 
+.question-ribbon-header{
+  display: inline-block; 
+  width: 100%;
+  /* border: 1px solid red; */
+}
+
+.question-ribbon-id {
+    float: left;
+}
+
+.question-ribbon-title {
+  float: right;
+}
 
 /* Add Question Style  */
 

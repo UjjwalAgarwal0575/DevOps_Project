@@ -29,7 +29,7 @@ public class SubmissionService {
     public ResponseEntity<List<String>> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("testcase") List<List<String>> testcase ){
 
         try{
-            System.out.println("At submission service! Going to RubShellScript : " + testcase);
+            System.out.println("At submission service! Going to RunShellScript : " + testcase);
             byte[] fileBytes = file.getBytes();
             // String fileContent = new String(fileBytes);
 

@@ -5,11 +5,9 @@ function sliceProblemStatement(s){
     if (s.length <= 100) return s;
     
     return s.slice(0, 100) + "...";
-
 }
 
 function QuestionRibbon(props){
-
 
     let navigate = useNavigate();
     const routeChange = (path) => {
@@ -28,9 +26,13 @@ function QuestionRibbon(props){
     const textColor = "black";
 
     return (
-        <div class="problem" onClick={openProblem} style={{backgroundColor: bgColor}}>
-            <div class="problem-title" >Problem {props.problem.questionId}: {props.problem.title}</div>
-            <div class="problem-description">{sliceProblemStatement(props.problem.problemStatement)}</div>
+        <div className="problem" onClick={openProblem} style={{backgroundColor: bgColor}}>
+             <div className="question-ribbon-header">
+              <h4 className="question-ribbon-id"># {props.problem.questionId}</h4>
+              <h4 className="question-ribbon-title">{props.problem.title}</h4>
+            </div>
+            {/* <div className="problem-title" >{props.problem.title}</div> */}
+            {/* <div className="problem-description">{sliceProblemStatement(props.problem.problemStatement)}</div> */}
         </div>
     );
 

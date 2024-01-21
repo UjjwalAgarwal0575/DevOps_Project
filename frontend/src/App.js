@@ -29,8 +29,7 @@ class Problem {
 
 function App() {
 
-
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -79,9 +78,28 @@ function App() {
       // console.log(`Index: ${index}, Value: ${problem}`);
   });
   
+  // var problem1 = new Problem(
+  //   "123", 
+  //   "test problem 1", 
+  //   "asadsadda asda asdasd asd asdasds adjgasjgd kSHYWQDQ OSHHXAKSCHA asdas", 
+  //   "1 < n < 27", 
+  //   "4\n2 4 5", 
+  //   "false", 
+  //   "greedy");
 
+  // var problem2 = new Problem(
+  //   "125", 
+  //   "test problem 2", 
+  //   "asadsadda asda asdasd asd asdasds adjgasjgd kSHYWQDQ OSHHXAKSCHA asdas", 
+  //   "1 < n < 20", 
+  //   "ABFGC\nWIUON", 
+  //   "false", 
+  //   "greedy");
 
-
+    
+  //   problems["problem123"] = problem1;
+  //   problems["problem125"] = problem2;
+  
 
   return (
     <Router>

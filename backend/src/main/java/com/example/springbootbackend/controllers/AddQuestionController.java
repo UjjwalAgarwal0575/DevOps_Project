@@ -2,6 +2,7 @@ package com.example.springbootbackend.controllers;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +20,18 @@ import com.example.springbootbackend.database.QuestionRepo;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class AddQuestionController {
-    
+
     @Autowired
     private QuestionRepo questionRepo;
 
-    
     @PostMapping("/add-question")
-    public Question saveQuestion(@RequestBody Question question){
+    public Question saveQuestion(@RequestBody Question question) {
         System.out.println("Adding question...");
         return questionRepo.save(question);
     }
 
     @GetMapping("/get-questions")
-    public List<Question> getQuestions(){
+    public List<Question> getQuestions() {
         System.out.println("Getting question...");
         return questionRepo.findAll();
     }

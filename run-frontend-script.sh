@@ -10,5 +10,5 @@ docker rmi frontend
 # Build frontend and backend images
 docker build -t frontend ./frontend/
 
-docker run -d --network=devops_project_my-network --name=frontend-container -p 3000:3000 frontend
+docker run -d --network=my-network --name=frontend-container -p 3000:3000 frontend
 
