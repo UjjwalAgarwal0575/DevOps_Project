@@ -7,7 +7,7 @@ FROM node:18-alpine
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+# RUN npm install
 
 # Copy the project files to the working directory
 COPY . .

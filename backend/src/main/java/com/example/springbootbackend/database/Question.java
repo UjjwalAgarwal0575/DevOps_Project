@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Document(collection = "questions")
 public class Question {
     
-    @Id
-    private String id;
+    // @Id
+    private String questionId;
     private String title;
     private String problemStatement;
     private String constraints;

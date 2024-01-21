@@ -3,10 +3,12 @@ package com.example.springbootbackend.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ public class AddTestCasesController {
     @PostMapping("/add-testcases")
     public TestCases saveTestCases(@RequestBody TestCases testcase){
         // TestCases testcases = new TestCases(questionId, testcase);
+        System.out.println("Adding testcases...");
         return testcasesRepo.save(testcase);
         // return questionId + " " + testcase;
     }
@@ -34,25 +37,16 @@ public class AddTestCasesController {
     @GetMapping("/get-testcases")
     public List<TestCases> getTestCases(){
         // return "Connected Bro!";
+        System.out.println("Getting testcases...");
         return testcasesRepo.findAll();
     } 
 
 
-    private static void convertStringToJsonFile(String jsonString, String outputPath) {
-        try {
-            // Create ObjectMapper
-            ObjectMapper objectMapper = new ObjectMapper();
+    @GetMapping("/get-testcase-by-id/{id}")
+    public Optional<TestCases> getTestCaseByQuestionId(@PathVariable String id){
+        // return "Connected Bro!";
+        System.out.println("Question Id: " + id);
+        return testcasesRepo.findByQuestionId(id);
+    } 
 
-            // Convert JSON string to Java object (in this case, a Map)
-            Object jsonMap = objectMapper.readValue(jsonString, Object.class);
-
-            // Write Java object to JSON file
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(outputPath), jsonMap);
-
-            System.out.println("JSON file created successfully: " + outputPath);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
