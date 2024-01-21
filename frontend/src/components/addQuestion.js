@@ -147,7 +147,7 @@ const AddQuestion = () => {
                         {testCases.map((testCase, index) => (
                             <div className='add-testcase-form' key={index}>
                                 <label htmlFor={`input${index}`}>Input:</label>
-                                <input
+                                <textarea
                                     type="text"
                                     id={`input${index}`}
                                     name="input"
@@ -156,7 +156,7 @@ const AddQuestion = () => {
                                 />
 
                                 <label htmlFor={`output${index}`}>Output:</label>
-                                <input
+                                <textarea
                                     type="text"
                                     id={`output${index}`}
                                     name="output"

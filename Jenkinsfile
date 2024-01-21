@@ -4,9 +4,21 @@ pipeline {
     }
     agent any
     stages {
+        stage('Stage 0: Creating Mongo Container')
+        {
+            steps{
+                sh 'docker rm -f mongo-container'
+                sh 'docker run --name mongo-container --network=deployment_my-network -v /home/amar/Documents/Sem7/SPE/DevOps_Project/data:/data/db -p 27017:27017 -d mongo'
+            }
+// =======
+//                 sh 'docker run --name mongo-container --network=deployment_my-network -v /home/ujjwal/Desktop/DevOps_Project/data:/data/db -p 27017:27017 -d mongo '
+//             }
+                
+// >>>>>>> 42165bcddae5ce531c7972c0183a3c3cabb63664
+        }
         stage('Stage 1: Git Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/UjjwalAgarwal0575/DevOps_Project.git'
+                git branch: 'testing', url: 'https://github.com/UjjwalAgarwal0575/DevOps_Project.git'
             }
         }
         // Add more stages as needed

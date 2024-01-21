@@ -17,6 +17,7 @@ import com.example.springbootbackend.Test.RunShellScript;
 import com.example.springbootbackend.database.User;
 import com.example.springbootbackend.database.UserRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,18 +26,20 @@ public class SubmissionService {
 
     private RunShellScript runShellScript = new RunShellScript();
 
-    public ResponseEntity<String> submitFile(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<List<String>> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("testcase") List<List<String>> testcase ){
 
         try{
+            System.out.println("At submission service! Going to RunShellScript : " + testcase);
             byte[] fileBytes = file.getBytes();
             // String fileContent = new String(fileBytes);
 
-            runShellScript.execute(file);
-            return new ResponseEntity<>("Processed File", HttpStatus.OK);
+            List<String> resultArray = runShellScript.execute(file, testcase);
+            return new ResponseEntity<>(resultArray, HttpStatus.OK);
         
         } catch(IOException e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error processing the file", HttpStatus.INTERNAL_SERVER_ERROR);
+            List<String> resultArray = new ArrayList<>();
+            return new ResponseEntity<>(resultArray, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

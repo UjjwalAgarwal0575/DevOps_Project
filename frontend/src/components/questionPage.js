@@ -1,10 +1,70 @@
-import { react, useState } from 'react';
+import { react, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function QuestionPage(props) {
 
-    const problem = props.problem;
+    const { id } = useParams();
+    const problemId = `problem${id}`;
+    const problem = props.problems[problemId];
+
+    console.log("problemId: ", problemId);
+    console.log("problem: ", problem);
+
+    const [sampleInput, setSampleInput] = useState("");
+    const [sampleOutput, setSampleOutput] = useState("");
+    const [testcase, setTestcase] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [resultArray, setResultArray] = useState([]);
+    const [displayResult, setDisplayResult] = useState(false);
+
     const [selectedCodeFile, setSelectedCodeFile] = useState(null);
+
+    // get first testcase from the database
+
+    useEffect(() => {
+        
+        setLoading(false);
+        
+        axios.get(`http://localhost:8082/api/get-testcase-by-id/${problem.questionId}`)
+        .then((response) => {
+            // console.log("Testcases by specific id: ", response);
+            // console.log("A Testcase: ", response.data.testCases[0]);
+            // console.log("JSON Testcase: ", JSON.parse(response.data.testCases[0]));
+            
+            var testcaseArray = [];
+            for (var index=0; index<response.data.testCases.length ;index++){
+                var inputoutput = JSON.parse(response.data.testCases[index]);
+                
+                testcaseArray.push([inputoutput.input, inputoutput.output]);
+            }
+
+            console.log(testcaseArray);
+            
+            setSampleInput(testcaseArray[0][0]);
+            setSampleOutput(testcaseArray[0][1]);
+            setTestcase(testcaseArray);
+            
+            setLoading(false);
+            // console.log(testcase);
+        })
+        .catch(error => {
+            setError(error);
+            setLoading(false);
+        });
+    
+      }, []);
+
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
+
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -15,26 +75,28 @@ function QuestionPage(props) {
     const submitCode = async () => {
         if (!selectedCodeFile) {
             alert("Please select a file to upload!");
-        }else {
+        } else {
             try {
                 const formData = new FormData();
                 formData.append('file', selectedCodeFile);
+                formData.append('testcase', JSON.stringify(testcase));
 
                 const axiosInstance = axios.create({
                     baseURL: 'http://localhost:8082', // Update with your backend container name and port
                 });
 
-                const response = await axiosInstance.get('/api/get-data', {
-                  headers: {
-                    // 'Content-Type': 'multipart/form-data',
-                    'Content-Type': 'application/json',
-                  },
+                const response = await axiosInstance.post('/api/submit-file', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
                 });
-          
+
                 console.log('API Response:', response.data);
-              } catch (error) {
+                setResultArray(response.data);
+                setDisplayResult(true);
+            } catch (error) {
                 console.error('Error uploading file:', error);
-              }
+            }
         }
     }
 
@@ -43,17 +105,17 @@ function QuestionPage(props) {
 
         <>
             <header>
-                <h1>SpeedCoder</h1>
-                <a href="#" class="profile-button">Profile</a>
+                <h1>AceCoder</h1>
+                <a href="#" className="profile-button">Profile</a>
             </header>
-            <div class="problem-statement">
+            <div className="problem-statement">
 
-                <div class="problem-title">
-                    <h3>Problem {problem.id}: {problem.title} </h3>
+                <div className="problem-title">
+                    <h3>Problem {problem.questionId}: {problem.title} </h3>
                 </div>
                 <br></br>
                 <br></br>
-                <div class="problem-description">
+                <div className="problem-description">
                     <p>{problem.problemStatement}</p>
                     <p>Constraints:</p>
                     <ul>
@@ -62,11 +124,11 @@ function QuestionPage(props) {
                         {/* <li>Output: ...</li> */}
                     </ul>
                 </div>
-                <div class="input-output" >
+                <div className="input-output" >
                     <div><strong>Input:</strong></div>
-                    <code dangerouslySetInnerHTML={{ __html: problem.examples.input }} />
+                    <code dangerouslySetInnerHTML={{ __html: sampleInput }} />
                     <div><strong>Output:</strong></div>
-                    <code dangerouslySetInnerHTML={{ __html: problem.examples.output }} />
+                    <code dangerouslySetInnerHTML={{ __html: sampleOutput }} />
                 </div>
 
                 <br></br>
@@ -74,6 +136,17 @@ function QuestionPage(props) {
                 <br></br>
                 <br></br>
                 <button onClick={submitCode}>Submit</button>
+            </div>
+
+            <div className="problem-statement">
+            <h2>Results</h2>
+            {displayResult && 
+                <ul>
+                    {Object.entries(resultArray).map(([key, value]) => (
+                        <li className={value}>{value}</li>    
+                    ))}
+                </ul>
+            } 
             </div>
         </>
 
