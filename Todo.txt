@@ -1,0 +1,21 @@
+********************************
+Logging/ELK
+testing
+Report
+Test on Jenkins
+delete button
+
+****************Doubt****************
+ssh
+Building/Packaging
+
+
+
+****************Next-sem****************
+Make the executable file only once then test against all test cases.
+Correct Run.sh for compiling java files.
+Add all the questions at once
+kubernetes
+Add runtime and memory constraints 
+Retrieve Tagwise questions
+Contest
