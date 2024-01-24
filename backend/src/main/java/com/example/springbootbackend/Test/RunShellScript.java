@@ -34,10 +34,10 @@ public class RunShellScript {
         try {
             // Provide the path to your .sh script
             String curDir = System.getProperty("user.dir");
-            // String scriptPath = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
-            String scriptPath = curDir + "/run.sh";
-            // String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
-            String filePath = curDir + "/";
+            String scriptPath = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
+            // String scriptPath = curDir + "/run.sh";
+            String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
+            // String filePath = curDir + "/";
 
 
             // Extract fileName and extension to use respective shell command

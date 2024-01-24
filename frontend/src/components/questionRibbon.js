@@ -35,8 +35,6 @@ function QuestionRibbon(props){
             {/* <div className="problem-description">{sliceProblemStatement(props.problem.problemStatement)}</div> */}
         </div>
     );
-
 }
-
 
 export default QuestionRibbon;

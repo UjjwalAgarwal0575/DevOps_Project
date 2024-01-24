@@ -12,6 +12,7 @@ import DeleteQuestion from './components/deleteQuestion';
 import UpdateQuestion from './components/updateQuestion';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Auth } from './authentication/auth';
 
 
 class Problem {
@@ -54,9 +55,8 @@ function App() {
   if (loading) {
     return <p>Loading...</p>;
   }
-
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p className='ErrorLoading'>Error: {error.message}</p>;
   }
 
 
@@ -78,27 +78,6 @@ function App() {
       // console.log(`Index: ${index}, Value: ${problem}`);
   });
   
-  // var problem1 = new Problem(
-  //   "123", 
-  //   "test problem 1", 
-  //   "asadsadda asda asdasd asd asdasds adjgasjgd kSHYWQDQ OSHHXAKSCHA asdas", 
-  //   "1 < n < 27", 
-  //   "4\n2 4 5", 
-  //   "false", 
-  //   "greedy");
-
-  // var problem2 = new Problem(
-  //   "125", 
-  //   "test problem 2", 
-  //   "asadsadda asda asdasd asd asdasds adjgasjgd kSHYWQDQ OSHHXAKSCHA asdas", 
-  //   "1 < n < 20", 
-  //   "ABFGC\nWIUON", 
-  //   "false", 
-  //   "greedy");
-
-    
-  //   problems["problem123"] = problem1;
-  //   problems["problem125"] = problem2;
   
 
   return (
@@ -106,6 +85,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Dashboard problems={problems} />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/add-question" element={<AddQuestion />} />
           <Route path="/delete-question" element={<DeleteQuestion />} />
           <Route path="/update-question" element={<UpdateQuestion />} />

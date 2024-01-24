@@ -20,18 +20,20 @@ public class AuthController {
     @Autowired
     private UserRepo userRepo;
 
+    // Returning user data object once the user is logged In Successfully
     @PostMapping("/sign-in")
-    public ResponseEntity<String> signInUser(@RequestBody User user) {
+    public ResponseEntity<User> signInUser(@RequestBody User user) {
         String emailId = user.getEmailId();
         Optional<User> optionalUser = userRepo.findByEmailId(emailId);
+        
         if (optionalUser.isPresent()) {
             User u = optionalUser.get();
             if (u.getPassword().equals(user.getPassword())) {
                 System.out.println("logged in succesfully.");
-                return ResponseEntity.status(HttpStatus.OK).body("User registered successfully!");
+                return ResponseEntity.status(HttpStatus.OK).body(u);
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Credentials!");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @PostMapping("/sign-up")

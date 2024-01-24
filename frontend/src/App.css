@@ -1,24 +1,3 @@
-/* .App {
-  background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fgetwallpapers.com%2Fcollection%2Fcoding-wallpapers&psig=AOvVaw0MkMAP8ADtzfb9WR5A-FkJ&ust=1705169937804000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCNjuuZ272IMDFQAAAAAdAAAAABAD);
-} */
-
-
-
-/* body {
-  /* background-image: url('../images/bg.jpeg'); */
-  /* background-size: cover; 
-  background-repeat: no-repeat;
-  background-attachment: fixed; This property fixes the background image while scrolling */
-  /* background-color: red; */
-/* }  */
-
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
 .App-header {
   background-color: #282c34;
   min-height: 100%;
@@ -245,15 +224,57 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-/* button {
-  background-color: #4caf50;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+ /* Login Register  */
+
+ /* App.css */
+
+.app-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-button:hover {
-  background-color: #45a049;
-} */
+.auth-container {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.toggle-auth {
+  color: #007bff;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.Loading{
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
