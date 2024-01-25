@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { Navbar } from './navbar';
 
 const AddQuestion = () => {
 
@@ -101,11 +102,7 @@ const AddQuestion = () => {
     return (
         <div >
 
-            <header>
-                <h1>AceCoder</h1>
-                <a href="#" className="profile-button">Profile</a>
-            </header>
-
+            <Navbar />
 
             <form onSubmit={addNewQuestion}>
                 <div className='add-question-form'>

@@ -28,9 +28,12 @@ export const Auth = () => {
                 'Content-Type': 'application/json',
               },
             });
+
+            // console.log(response.data);
             
-            if (response.data === 200){
-                localStorage.setItem("userData", JSON.stringify(userData));                
+            if (response.status === 200){
+                localStorage.setItem("userData", JSON.stringify(userData));        
+                // console.log("Here I am ");       
                 routeChange("/");
             }
             // console.log(response);  
@@ -60,7 +63,7 @@ export const Auth = () => {
             // logged In Successfully
             if (response.status === 200){
                 // store user details in some local Storage
-                console.log(response.data);
+                // console.log(response.data);
                 localStorage.setItem("userData", JSON.stringify(response.data));                
                 routeChange("/");
             }

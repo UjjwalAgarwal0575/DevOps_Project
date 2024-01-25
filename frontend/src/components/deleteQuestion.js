@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navbar } from './navbar';
 
 const DeleteQuestion = () => {
 
@@ -24,10 +25,7 @@ const DeleteQuestion = () => {
     return (
         <div >
 
-            <header>
-                <h1>AceCoder</h1>
-                <a href="#" className="profile-button">Profile</a>
-            </header>
+            <Navbar />
 
 
             <form onSubmit={deleteQuestion}>
