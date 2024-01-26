@@ -228,18 +228,19 @@ input[type="checkbox"] {
 
 
 .Passed{
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #fff;
+  /* display: block; */
   padding: 10px;
   transition: background-color 0.3s;
-  background-color: rgb(120, 249, 120);
+  background-color: rgb(127, 224, 82);
   cursor: pointer;
 }
 
 .Failed{
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #fff;
   padding: 10px;
   transition: background-color 0.3s;
-  background-color: rgb(242, 71, 71);
+  background-color: rgb(219, 57, 57);
   cursor: pointer;
 }
 

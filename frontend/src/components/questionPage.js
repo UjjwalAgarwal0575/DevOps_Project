@@ -174,7 +174,7 @@ function QuestionPage(props) {
                 <div className='half'>
                     <div className='horizontal'>
                         <div className='quarter'><Editor setCode={setCode} /></div>
-                        <div className='quarter'><Results displayResult={displayResult} resultArray={resultArray} /></div>
+                        <div className='quarter'><Results displayResult={displayResult} resultArray={resultArray} testcases={testcase}/></div>
                     </div>
                 </div>
 
