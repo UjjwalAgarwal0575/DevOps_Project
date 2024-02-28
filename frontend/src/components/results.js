@@ -23,10 +23,11 @@ export const Results = (props) => {
                     {props.displayResult &&
                         <ul>
                              {props.displayResult &&
-                                <ul>
+                                <ul> 
+                                {/* key is 0 Failed, 1 Passed, etc */}
                                 {props.resultArray.map(({ key, value }) => (
                                     <>
-                                    <div onClick={() => handleClick(key[0], value)} className={key}>Testcase: {key[0]}</div>
+                                    <div onClick={() => handleClick(key[0], value)} className={key.substring(2)}>Testcase: {key[0]}</div>
                                     </>
                                 ))}
                                 </ul>
@@ -39,7 +40,7 @@ export const Results = (props) => {
                     <button onClick={()=>{setResults(true)}}>Back</button>
                     <br></br>
                     <br></br>
-                    <h4>TestCase: {key}</h4>
+                    <h5>TestCase: {key}</h5>
                     <div className="input-output" >
                         <div><strong>Input:</strong></div>
                         <code dangerouslySetInnerHTML={{ __html: props.testcases[key][0] }} />

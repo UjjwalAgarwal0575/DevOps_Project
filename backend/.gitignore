@@ -19,6 +19,12 @@ target/
 *.iml
 *.ipr
 
+# Ignore all the generated files while executing the user code
+/src/main/java/com/example/springbootbackend/Test/source.*
+/src/main/java/com/example/springbootbackend/Test/*.txt
+
+
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
