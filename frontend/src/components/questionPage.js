@@ -115,6 +115,7 @@ function QuestionPage(props) {
                 console.log('API Response:', response.data);
                 setResultArray(response.data);
                 setDisplayResult(true);
+
             } catch (error) {
                 console.error('Error uploading file:', error);
             }

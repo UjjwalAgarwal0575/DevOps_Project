@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.util.Pair;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,11 +26,11 @@ import com.example.springbootbackend.database.TestCasesRepo;
 
 public class RunShellScript {
 
-    public List<String> execute(MultipartFile file, String code, String fileType, List<List<String>> testcase) {
+    public List<Pair<String, String>> execute(MultipartFile file, String code, String fileType, List<List<String>> testcase) {
         System.out.println("hello");        
         System.out.println(testcase);
 
-        List<String> resultArray = new ArrayList<>();
+        List<Pair<String, String>> resultArray = new ArrayList<>();
 
         try {
             // Provide the path to your .sh script
@@ -47,9 +48,6 @@ public class RunShellScript {
             }
             else{
                 fileContent = file.getBytes();
-                // int lastDotIndex = filename.lastIndexOf('.');
-                // String fileExtension = lastDotIndex == -1 ? "" : filename.substring(lastDotIndex + 1);
-                // System.out.println(fileExtension);
             }
 
 
@@ -115,13 +113,13 @@ public class RunShellScript {
                 // Start the process
                 Process process = processBuilder.start();
                 
-                // Read the output of the script
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
-                    }
-                }
+                // // Read the output of the script
+                // try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                //     String line;
+                //     while ((line = reader.readLine()) != null) {
+                //         System.out.println("Printing the line " + line);
+                //     }
+                // }
 
                 // Wait for the process to finish
                 int exitCode = process.waitFor();
@@ -131,12 +129,18 @@ public class RunShellScript {
 
                 try {
                     boolean areContentsEqual = compareFileContents(userOutputPath, expectedOutputPath);
-        
+                    
+                    String userOutput = Files.readString(userOutputPath);
+                    
                     if (areContentsEqual) {
-                        resultArray.add("TestCase: " + counter + "    Passed");
+                        String key = counter + "    Passed";
+                        Pair <String, String> pair = new Pair<>(key, userOutput);
+                        resultArray.add(pair);
                         System.out.println("The contents of the files are equal.");
                     } else {
-                        resultArray.add("TestCase: " + counter + "    Failed");
+                        String key = counter + "    Failed";
+                        Pair <String, String> pair = new Pair<>(key, userOutput);
+                        resultArray.add(pair);
                         System.out.println("The contents of the files are not equal.");
                     }
                 } catch (IOException e) {

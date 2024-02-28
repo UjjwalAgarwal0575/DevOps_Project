@@ -3,11 +3,14 @@ import { useState } from "react";
 export const Results = (props) => {
 
     const [results, setResults] = useState(true);
-    const [key, setKey] = useState(0);
+    const [key, setKey] = useState(0);      // testcase number
+    const [value, setValue] = useState(""); // user output of a testcase
 
-    function handleClick(key) {
+
+    function handleClick(key, value) {
         setResults(false);
         setKey(key);
+        setValue(value);
     }
 
     return (
@@ -19,9 +22,15 @@ export const Results = (props) => {
                     <h4>Results</h4>
                     {props.displayResult &&
                         <ul>
-                            {Object.entries(props.resultArray).map(([key, value]) => (
-                                <div onClick={() => handleClick(key)} className={value}>{value}</div>
-                            ))}
+                             {props.displayResult &&
+                                <ul>
+                                {props.resultArray.map(({ key, value }) => (
+                                    <>
+                                    <div onClick={() => handleClick(key[0], value)} className={key}>Testcase: {key[0]}</div>
+                                    </>
+                                ))}
+                                </ul>
+                            }
                         </ul>
                     }
                 </div>
@@ -34,8 +43,10 @@ export const Results = (props) => {
                     <div className="input-output" >
                         <div><strong>Input:</strong></div>
                         <code dangerouslySetInnerHTML={{ __html: props.testcases[key][0] }} />
-                        <div><strong>Output:</strong></div>
+                        <div><strong>Expected Output:</strong></div>
                         <code dangerouslySetInnerHTML={{ __html: props.testcases[key][1] }} />
+                        <div><strong>Your Output:</strong></div>
+                        <code dangerouslySetInnerHTML={{ __html: value }} />
                     </div>
                 </div>
             }

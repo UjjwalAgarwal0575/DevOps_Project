@@ -75,6 +75,8 @@ export const MonacoEditorComponent = ({testcase, setResultArray, setDisplayResul
         setResultArray(response.data);
         setDisplayResult(true);
 
+        // console.log(response.data);
+
       } catch (error) {
         console.error('Error uploading file:', error);
       }

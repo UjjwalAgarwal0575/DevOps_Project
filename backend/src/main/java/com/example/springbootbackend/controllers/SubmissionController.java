@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.netty.handler.codec.socksx.SocksPortUnificationServerHandler;
+import javafx.util.Pair;
 
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.factory.annotation.Autowired;
@@ -60,11 +61,11 @@ public class SubmissionController {
     }
 
     @PostMapping("/submit-file")
-    public ResponseEntity<List<String>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcaseJson){
+    public ResponseEntity<List<Pair<String, String>>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcaseJson){
 
         System.out.println(file);
         if (file == null && code.equals("")){
-            List<String> resultArray = new ArrayList<>();
+            List<Pair<String, String>> resultArray = new ArrayList<>();
             return new ResponseEntity<>(resultArray, HttpStatus.BAD_REQUEST);
         }
         
@@ -77,7 +78,7 @@ public class SubmissionController {
 
         }catch(IOException e){
             e.printStackTrace(); // You might want to log the exception
-            List<String> resultArray = new ArrayList<>();
+            List<Pair<String, String>> resultArray = new ArrayList<>();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultArray);
         }
 
