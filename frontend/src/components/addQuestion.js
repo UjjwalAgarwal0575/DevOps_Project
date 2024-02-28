@@ -56,6 +56,7 @@ const AddQuestion = () => {
         } 
         catch (error) {
             console.error('Error adding question:', error);
+            return;
         }
 
 
@@ -93,6 +94,7 @@ const AddQuestion = () => {
         } 
         catch (error) {
             console.error('Error adding question:', error);
+            return;
         }
 
     }

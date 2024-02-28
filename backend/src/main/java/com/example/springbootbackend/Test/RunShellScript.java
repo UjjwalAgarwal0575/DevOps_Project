@@ -25,7 +25,7 @@ import com.example.springbootbackend.database.TestCasesRepo;
 
 public class RunShellScript {
 
-    public List<String> execute(MultipartFile file, List<List<String>> testcase) {
+    public List<String> execute(MultipartFile file, String code, String fileType, List<List<String>> testcase) {
         System.out.println("hello");        
         System.out.println(testcase);
 
@@ -35,25 +35,34 @@ public class RunShellScript {
             // Provide the path to your .sh script
             String curDir = System.getProperty("user.dir");
             String scriptPath = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
-            // String scriptPath = curDir + "/run.sh";
             String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
-            // String filePath = curDir + "/";
-
-
-            // Extract fileName and extension to use respective shell command
-            // For now, it's only cpp
-            String fileName = file.getOriginalFilename();
-
-            System.out.println("Filename: " + fileName);
-            // Split fileName into two parts
-            String[] splits = fileName.split("\\.", 2);
-            String fileType = splits[1];
-            byte[] fileContent = file.getBytes();
             
+
+            // If file is empty, create a file with content as code
+            // Create a new code file of the name "" to pass it as a parameter to shellScript
+            byte[] fileContent;
+
+            if (file == null){
+                fileContent = code.getBytes();
+            }
+            else{
+                fileContent = file.getBytes();
+                // int lastDotIndex = filename.lastIndexOf('.');
+                // String fileExtension = lastDotIndex == -1 ? "" : filename.substring(lastDotIndex + 1);
+                // System.out.println(fileExtension);
+            }
+
+
+            File convertFile = new File(filePath + "source." + fileType);
+            convertFile.createNewFile();
+            FileOutputStream fout = new FileOutputStream(convertFile);
+            fout.write(fileContent);
+            fout.close();
+   
 
             // Additional arguments to pass to the script
             String arg1 = fileType;
-            String arg2 = filePath + fileName;
+            String arg2 = filePath + "source." + fileType;
             
             
             int counter = 0;
@@ -94,13 +103,7 @@ public class RunShellScript {
 
 
                 
-                // Create a new code file of the name "" to pass it as a parameter to shellScript
-                File convertFile = new File(filePath + fileName);
-                convertFile.createNewFile();
-                FileOutputStream fout = new FileOutputStream(convertFile);
-                fout.write(fileContent);
-                fout.close();
-                
+             
                 
                 // Create ProcessBuilder with command and arguments
                 ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath, arg1, arg2, arg3, arg4);

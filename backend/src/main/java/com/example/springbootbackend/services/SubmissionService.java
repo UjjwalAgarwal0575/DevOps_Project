@@ -26,14 +26,16 @@ public class SubmissionService {
 
     private RunShellScript runShellScript = new RunShellScript();
 
-    public ResponseEntity<List<String>> submitFile(@RequestParam("file") MultipartFile file, @RequestParam("testcase") List<List<String>> testcase ){
+    public ResponseEntity<List<String>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") List<List<String>> testcase ){
 
         try{
             System.out.println("At submission service! Going to RunShellScript : " + testcase);
-            byte[] fileBytes = file.getBytes();
+            if (file != null){
+                byte[] fileBytes = file.getBytes();
             // String fileContent = new String(fileBytes);
-
-            List<String> resultArray = runShellScript.execute(file, testcase);
+            }
+            
+            List<String> resultArray = runShellScript.execute(file, code, fileType, testcase);
             return new ResponseEntity<>(resultArray, HttpStatus.OK);
         
         } catch(IOException e){

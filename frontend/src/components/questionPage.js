@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Navbar } from './navbar';
 import { Results } from './results';
-import { Editor } from './codeEditor';
 import { saveAs } from 'file-saver';
+import { MonacoEditorComponent} from './monacoEditor';
 
 function QuestionPage(props) {
 
@@ -25,7 +25,7 @@ function QuestionPage(props) {
 
     const [selectedCodeFile, setSelectedCodeFile] = useState(null);
     const [code, setCode] = useState("");
-    const [fileType, setFileType] = useState("cpp");
+    var [fileType, setFileType] = useState("cpp");
 
     // get first testcase from the database
 
@@ -77,20 +77,23 @@ function QuestionPage(props) {
         setSelectedCodeFile(file);
     };
 
-    function handleFileTypeChange() {
-        var dropdown = document.getElementById("language-dropdown");
-        var selectedOption = dropdown.options[dropdown.selectedIndex].value;
-        setFileType(selectedOption);
-    }
-
 
     const submitCode = async () => {
-        if (!selectedCodeFile && code === "") {
-            alert("Write some piece of code or select a file to upload!");
+        if (!selectedCodeFile) {
+            alert("Select a file to upload!");
         } 
         else {
             try {
                 const formData = new FormData();
+                
+                // if code file is selected
+                // get it's extension and use it as filetype 
+                // if (selectedCodeFile){
+                const filename = document.getElementById("submissionFile").files[0].name;
+                    // console.log(filename);
+                fileType = filename.split('.').pop();
+                    // console.log(fileType);
+                // }
 
                 formData.append('file', selectedCodeFile);
                 formData.append('sourceCode', code);
@@ -124,7 +127,7 @@ function QuestionPage(props) {
         <>
             <Navbar />
             {/* <h1>{code}</h1> */}
-
+            
             <div className='question-page-container'>
                 
                 <div className='half problem-statement'>
@@ -155,25 +158,17 @@ function QuestionPage(props) {
                     </div>
 
                     <br></br>
-                    <input type="file" onChange={handleFileChange} />
-                    <br></br>
-                    <br></br>
-                    <label for="language-dropdown">Select language: </label>
-                    <br></br>
-                    <select id="language-dropdown" className='language-dropdown' onChange={handleFileTypeChange}>
-                        <option value="cpp">C++</option>
-                        <option value="java">Java</option>
-                        <option value="py">Python</option>
-                        <option value="c">C</option>
-                    </select>
+                    <input type="file" id="submissionFile" onChange={handleFileChange} />
                     <br></br>
                     <br></br>
                     <button onClick={submitCode}>Submit</button>
                 </div>
 
                 <div className='half'>
+                    {/* <label for="language-dropdown">Select language: </label> */}
+            
                     <div className='horizontal'>
-                        <div className='quarter'><Editor setCode={setCode} /></div>
+                        <div className='quarter'><MonacoEditorComponent testcase={testcase} setResultArray={setResultArray} setDisplayResult={setDisplayResult}/></div>
                         <div className='quarter'><Results displayResult={displayResult} resultArray={resultArray} testcases={testcase}/></div>
                     </div>
                 </div>
