@@ -1,6 +1,6 @@
 import { react, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Navbar } from './navbar';
 import { Results } from './results';
 import { saveAs } from 'file-saver';
@@ -12,8 +12,8 @@ function QuestionPage(props) {
     const problemId = `problem${id}`;
     const problem = props.problems[problemId];
 
-    console.log("problemId: ", problemId);
-    console.log("problem: ", problem);
+    // console.log("problemId: ", problemId);
+    // console.log("problem: ", problem);
 
     const [sampleInput, setSampleInput] = useState("");
     const [sampleOutput, setSampleOutput] = useState("");
@@ -22,10 +22,18 @@ function QuestionPage(props) {
     const [error, setError] = useState(null);
     const [resultArray, setResultArray] = useState([]);
     const [displayResult, setDisplayResult] = useState(false);
+    const [addSubmissionBool, setAddSubmissionBool] = useState(false);
+    const [fileContentForSubmission, setFileContentForSubmission] = useState("");
 
     const [selectedCodeFile, setSelectedCodeFile] = useState(null);
     const [code, setCode] = useState("");
     var [fileType, setFileType] = useState("cpp");
+
+
+    let navigate = useNavigate();
+    const routeChange = (path, data) => {
+        navigate(path, {state: {data}});
+    }
 
     // get first testcase from the database
 
@@ -46,7 +54,7 @@ function QuestionPage(props) {
                     testcaseArray.push([inputoutput.input, inputoutput.output]);
                 }
 
-                console.log(testcaseArray);
+                // console.log(testcaseArray);
 
                 setSampleInput(testcaseArray[0][0]);
                 setSampleOutput(testcaseArray[0][1]);
@@ -62,6 +70,68 @@ function QuestionPage(props) {
 
     }, []);
 
+    useEffect(()=>{
+
+        const addSubmission = async () => {
+        
+            console.log(resultArray);
+    
+            var verdict = "Passed";
+            // Using forEach method
+            resultArray.forEach(obj => {
+                // obj.key.substring may contains leading spaces which we should remove
+                // instead we can use a inbuilt function to check the string ends with "Failed"
+                if (obj.key.substring(2).endsWith("Failed")) {
+                    verdict = "Failed";
+                }
+            });
+            
+    
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            console.log(fileContentForSubmission);
+    
+            // Now we know the problem has passed all the testcases
+            // make an entry in problemSubmission table
+        
+            const submissionData = {
+                "code": fileContentForSubmission,
+                "userId": userData.id,
+                "problemId": problemId,
+                "accepted": verdict,
+            }; 
+
+            
+            try{
+                const response = await axios.post('http://localhost:8082/api/add-submission', 
+                submissionData, 
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                });
+                
+                if (response.status === 200){
+                    console.log("Submission Added with data: ", response.data);
+                }
+    
+            }catch(error){
+                console.log("Error adding the submission: ", error);
+            }
+    
+        }
+
+
+        if (addSubmissionBool) {
+            addSubmission();
+            setAddSubmissionBool(false);
+        }
+
+
+        // if verdict is Passed
+        // append the questionNumber 
+
+    }, [resultArray]);
+    
 
     if (loading) {
         return <p>Loading...</p>;
@@ -71,10 +141,19 @@ function QuestionPage(props) {
         return <p>Error: {error.message}</p>;
     }
 
-
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedCodeFile(file);
+
+
+        const reader = new FileReader(); // Create a new FileReader object
+
+        reader.onload = (event) => {
+            const content = event.target.result; // Get the file content as a string
+            setFileContentForSubmission(content); // Update the file content state
+        };
+
+        reader.readAsText(file); // Read the file as text
     };
 
 
@@ -112,14 +191,23 @@ function QuestionPage(props) {
                     },
                 });
 
-                console.log('API Response:', response.data);
+                // console.log('API Response:', response.data);
                 setResultArray(response.data);
                 setDisplayResult(true);
+                setAddSubmissionBool(true);
+                // addSubmission();
 
             } catch (error) {
                 console.error('Error uploading file:', error);
             }
         }
+    }
+
+
+
+    const viewSubmissions = () =>{
+        const data = {problemId: problemId, userId: JSON.parse(localStorage.getItem("userData")).id};
+        routeChange('/submissions', data);
     }
 
 
@@ -163,13 +251,17 @@ function QuestionPage(props) {
                     <br></br>
                     <br></br>
                     <button onClick={submitCode}>Submit</button>
+                    {/* <br></br> */}
+                    {/* <button onClick={viewSubmissions}>View Submissions</button> */}
                 </div>
+
 
                 <div className='half'>
                     {/* <label for="language-dropdown">Select language: </label> */}
             
                     <div className='horizontal'>
-                        <div className='quarter'><MonacoEditorComponent testcase={testcase} setResultArray={setResultArray} setDisplayResult={setDisplayResult}/></div>
+                        <button onClick={viewSubmissions}>View Submissions</button>
+                        <div className='quarter'><MonacoEditorComponent testcase={testcase} problemId={problemId} resultArray={resultArray} setResultArray={setResultArray} setDisplayResult={setDisplayResult}/></div>
                         <div className='quarter'><Results displayResult={displayResult} resultArray={resultArray} testcases={testcase}/></div>
                     </div>
                 </div>

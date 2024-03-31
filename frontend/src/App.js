@@ -13,6 +13,7 @@ import UpdateQuestion from './components/updateQuestion';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Auth } from './authentication/auth';
+import Submissions from './components/submissions';
 
 
 class Problem {
@@ -33,15 +34,30 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // const [loggedInUserId, setLoggedInUserId] = useState("");
+  const [userSolvedProblems, setUserSolvedProblems] = useState([]);
 
   useEffect(() => {
     setLoading(true);
-    
+
+    if (localStorage.getItem("userData") !== null) {
+      const id = JSON.parse(localStorage.getItem("userData")).id;
+
+      axios.get('http://localhost:8082/api/get-solved-questions-user-id?userId=${id}')
+      .then((response)=>{
+        setUserSolvedProblems(response.data);
+      })
+      .catch((error) => {
+        console.log("Error is getting solved problems ", error);
+      })
+    }
+
     // get-questions
     axios.get('http://localhost:8082/api/get-questions')
       .then((response) => {
-        console.log("Questions Response: ", response);
+        // console.log("Questions Response: ", response);
         setData(response.data);
+        // console.log(response.data);
         setLoading(false);
       })
       .catch(error => {
@@ -49,8 +65,12 @@ function App() {
         setLoading(false);
       });
 
+
+    // check if the user is logged In 
+    // if he is, then get all the questions 
+
   }, []);
-  
+
 
   if (loading) {
     return <p>Loading...</p>;
@@ -63,22 +83,29 @@ function App() {
   const problems = {};
 
   data.forEach((problemData, index) => {
-      var problem = new Problem(
-        problemData.questionId,  
-        problemData.title, 
-        problemData.problemStatement, 
-        problemData.constraints,
-        { input: "3", output: "3 10 5 16 8 4 2 1" }, 
-        false, 
-        problemData.tag
-      );
-      
-      var problemKey = "problem" + problemData.questionId;
-      problems[problemKey] = problem; 
-      // console.log(`Index: ${index}, Value: ${problem}`);
+    
+    var solved = false;
+    
+    if (userSolvedProblems.includes(problemData.questionId)){
+      solved = true;
+    }
+
+    var problem = new Problem(
+      problemData.questionId,
+      problemData.title,
+      problemData.problemStatement,
+      problemData.constraints,
+      { input: "3", output: "3 10 5 16 8 4 2 1" },
+      solved,
+      problemData.tag
+    );
+
+    var problemKey = "problem" + problemData.questionId;
+    problems[problemKey] = problem;
+    // console.log(`Index: ${index}, Value: ${problem}`);
   });
-  
-  
+
+
 
   return (
     <Router>
@@ -89,7 +116,8 @@ function App() {
           <Route path="/add-question" element={<AddQuestion />} />
           <Route path="/delete-question" element={<DeleteQuestion />} />
           <Route path="/update-question" element={<UpdateQuestion />} />
-          <Route path="/question-page/:id" element={<QuestionPage problems={problems}/>} />
+          <Route path="/question-page/:id" element={<QuestionPage problems={problems} />} />
+          <Route path="/submissions" element={<Submissions />} />
         </Routes>
       </div>
     </Router>

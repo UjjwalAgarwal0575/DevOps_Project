@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import Editor from '@monaco-editor/react';
 
@@ -12,7 +12,7 @@ const files = {
   "cpp": {
     name: "source.cpp",
     language: "cpp",
-    value: "#include <bits/stdc++.h>"
+    value: "#include <iostream>"
   },
   "c": {
     name: "source.c",
@@ -26,7 +26,71 @@ const files = {
   }
 }
 
-export const MonacoEditorComponent = ({testcase, setResultArray, setDisplayResult}) => {
+export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResultArray, setDisplayResult}) => {
+
+
+  useEffect(()=>{
+
+    const addSubmission = async () => {
+    
+        console.log(resultArray);
+
+        var verdict = "Passed";
+        // Using forEach method
+        resultArray.forEach(obj => {
+            // obj.key.substring may contains leading spaces which we should remove
+            // instead we can use a inbuilt function to check the string ends with "Failed"
+            if (obj.key.substring(2).endsWith("Failed")) {
+                verdict = "Failed";
+            }
+        });
+        
+
+        const userData = JSON.parse(localStorage.getItem("userData"));
+
+        // access the code string from the file
+
+
+        // Now we know the problem has passed all the testcases
+        // make an entry in problemSubmission table
+        const submissionData = {
+            "code": editorRef.current.getValue(),
+            "userId": userData.id,
+            "problemId": problemId,
+            "accepted": verdict,
+        }; 
+
+        
+        try{
+            const response = await axios.post('http://localhost:8082/api/add-submission', 
+            submissionData, 
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+            
+            if (response.status === 200){
+                console.log("Submission Added with data: ", response.data);
+            }
+
+        }catch(error){
+            console.log("Error adding the submission: ", error);
+        }
+
+    }
+
+
+    if (addSubmissionBool) {
+        addSubmission();
+        setAddSubmissionBool(false);
+    }
+
+}, [resultArray]);
+
+
+
+
   const options = {
     selectOnLineNumbers: true,
     roundedSelection: false,
@@ -36,6 +100,7 @@ export const MonacoEditorComponent = ({testcase, setResultArray, setDisplayResul
   };
 
   const [fileName, setFileName] = useState("cpp");
+  const [addSubmissionBool, setAddSubmissionBool] = useState(false);
   const editorRef = useRef(null);
   const file = files[fileName];
 
@@ -74,7 +139,12 @@ export const MonacoEditorComponent = ({testcase, setResultArray, setDisplayResul
         console.log('API Response:', response.data);
         setResultArray(response.data);
         setDisplayResult(true);
+        setAddSubmissionBool(true);
 
+        // if all the testcases are passed
+        // mark the question as done
+        
+        // checkAcceptance();
         // console.log(response.data);
 
       } catch (error) {
@@ -83,9 +153,9 @@ export const MonacoEditorComponent = ({testcase, setResultArray, setDisplayResul
   }
 
 
+
   return (
     <>
-
       <select id="language-dropdown" className='language-dropdown' onChange={handleFileTypeChange}>
         <option value="cpp">C++</option>
         <option value="java">Java</option>

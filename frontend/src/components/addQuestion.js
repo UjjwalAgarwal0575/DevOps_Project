@@ -38,10 +38,10 @@ const AddQuestion = () => {
 
         const questionData = {questionId, title, problemStatement, constraints, tag};
         // console.log(id);
-        console.log(title);
-        console.log(problemStatement);
-        console.log(constraints);
-        console.log(tag);
+        // console.log(title);
+        // console.log(problemStatement);
+        // console.log(constraints);
+        // console.log(tag);
 
         // save the question
         try {

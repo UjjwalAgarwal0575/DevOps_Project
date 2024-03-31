@@ -151,6 +151,15 @@ footer {
   border-radius: 5px;
 }
 
+.submission-ribbon {
+  /* max-width: 100%; */
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0 10px rgba(24, 10, 223, 0.1);
+}
+
 
 .question-ribbon-header{
   display: inline-block; 
@@ -225,6 +234,38 @@ textarea {
 input[type="checkbox"] {
   margin-bottom: 12px;
 }
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* shadow effect */
+  padding: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.popup-content {
+  /* Additional styling for the content if needed */
+}
+
 
 
 .Passed{
