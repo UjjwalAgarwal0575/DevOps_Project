@@ -31,11 +31,13 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
 
   useEffect(()=>{
 
+    var verdict = "";
+
     const addSubmission = async () => {
     
         console.log(resultArray);
 
-        var verdict = "Passed";
+        verdict = "Passed";
         // Using forEach method
         resultArray.forEach(obj => {
             // obj.key.substring may contains leading spaces which we should remove
@@ -80,10 +82,35 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
 
     }
 
+    const addSolvedProblem = async () => {
+      const userData = JSON.parse(localStorage.getItem("userData"));  
+
+      try{
+          const response = await axios.post('http://localhost:8082/api/add-solved-problem?userId=' + userData.id, 
+          problemId, 
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          
+          if (response.status === 200){
+              console.log("Solved problem added with data: ", response.data);
+          }
+
+      }catch(error){
+          console.log("Error adding the solved problem: ", error);
+      }
+  }
+
 
     if (addSubmissionBool) {
         addSubmission();
         setAddSubmissionBool(false);
+    }
+
+    if (verdict === "Passed"){
+        addSolvedProblem();
     }
 
 }, [resultArray]);
@@ -163,7 +190,7 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
         <option value="c">C</option>
       </select>
 
-      <button onClick={submitCode} style={{marginLeft: "5px"}}>Submit</button>
+      {(localStorage.getItem("userData") !== null) && <button onClick={submitCode} style={{marginLeft: "5px"}}>Submit</button>}
 
       <Editor
         // language={fileName} // Set the language you want to use (e.g., "javascript", "html", "css")

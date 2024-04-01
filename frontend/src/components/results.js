@@ -27,7 +27,7 @@ export const Results = (props) => {
                                 {/* key is 0 Failed, 1 Passed, etc */}
                                 {props.resultArray.map(({ key, value }) => (
                                     <>
-                                    <div onClick={() => handleClick(key[0], value)} className={key.substring(2)}>Testcase: {key[0]}</div>
+                                    <div key={key} onClick={() => handleClick(key[0], value)} className={key.substring(2)}>Testcase: {key[0]}</div>
                                     </>
                                 ))}
                                 </ul>
