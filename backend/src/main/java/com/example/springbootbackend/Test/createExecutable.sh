@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage: ./compile.sh <filetype> <source_file> <output_executable>
-
+rm testOutput*
 lang=$1
 source_file=$2
 output_executable=$3
@@ -12,7 +12,7 @@ elif [ $lang = "cpp" ]; then
     g++ -o $output_executable $source_file
 elif [ $lang = "java" ]; then
     javac $source_file
-    mv $(basename $source_file .java).class $output_executable
+    # mv $(basename $source_file .java).class $output_executable
 elif [ $lang = "py" ]; then
     # No compilation needed for Python
     cp $source_file $output_executable

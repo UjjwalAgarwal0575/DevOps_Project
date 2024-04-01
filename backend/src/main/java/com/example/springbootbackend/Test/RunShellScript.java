@@ -35,23 +35,29 @@ public class RunShellScript {
         try {
             // Provide the path to your .sh script
             String curDir = System.getProperty("user.dir");
-            String scriptPath = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
+            // String Path = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
+            String createExecutablePath = curDir + "/src/main/java/com/example/springbootbackend/Test/createExecutable.sh";
+            String executePath = curDir + "/src/main/java/com/example/springbootbackend/Test/execute.sh";
             String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
             
 
             // If file is empty, create a file with content as code
             // Create a new code file of the name "" to pass it as a parameter to shellScript
             byte[] fileContent;
+            String fileName;
 
             if (file == null){
                 fileContent = code.getBytes();
+                fileName = "default_filename.txt";
             }
             else{
                 fileContent = file.getBytes();
+                fileName = file.getOriginalFilename();
             }
 
+            // System.out.println("Original fileName is: " + fileName);
 
-            File convertFile = new File(filePath + "source." + fileType);
+            File convertFile = new File(filePath + fileName);
             convertFile.createNewFile();
             FileOutputStream fout = new FileOutputStream(convertFile);
             fout.write(fileContent);
@@ -60,7 +66,7 @@ public class RunShellScript {
 
             // Additional arguments to pass to the script
             String arg1 = fileType;
-            String arg2 = filePath + "source." + fileType;
+            String arg2 = filePath + fileName;
             
             
             int counter = 0;
@@ -74,6 +80,7 @@ public class RunShellScript {
                 
                 String arg3 = filePath + "testOutput" + counter +".txt";
                 String arg4 = filePath + "testInput.txt";
+                String arg5 = filePath + "source";
 
                 System.out.println("Contents: " + fileContent);
                 
@@ -98,13 +105,11 @@ public class RunShellScript {
                     e.printStackTrace();
                     System.err.println("Error writing string to file: " + e.getMessage());
                 }
-
-
-                
-             
                 
                 // Create ProcessBuilder with command and arguments
-                ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath, arg1, arg2, arg3, arg4);
+                // ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath, arg1, arg2, arg3, arg4);
+                System.out.println(arg1);
+                ProcessBuilder processBuilder = new ProcessBuilder("bash", createExecutablePath, arg1, arg2, arg5);
                 // System.out.println(processBuilder.command());
                 
                 // Redirect error stream to output stream
@@ -112,6 +117,26 @@ public class RunShellScript {
                 
                 // Start the process
                 Process process = processBuilder.start();
+                process.waitFor();
+                
+                if(arg1.equals("java"))
+                {
+                    String basename = fileName;
+                    int pos = basename.lastIndexOf('.');
+                    if (pos > 0) {
+                        basename = basename.substring(0, pos);
+                    }
+                    System.out.println("Basename: " + basename);
+                    arg5 = basename;
+                }
+                System.out.println("Argument 5 is : " + arg5);
+                ProcessBuilder processBuilder_execute = new ProcessBuilder("bash", executePath, arg1, arg5, arg4, arg3);
+                
+                // Redirect error stream to output stream
+                processBuilder_execute.redirectErrorStream(true);
+                
+                // Start the process
+                Process process_execute = processBuilder_execute.start();
                 
                 // // Read the output of the script
                 // try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -122,8 +147,10 @@ public class RunShellScript {
                 // }
 
                 // Wait for the process to finish
-                int exitCode = process.waitFor();
+                int exitCode = process_execute.waitFor();
                 
+
+                System.out.println(arg1+arg2+arg3+arg4+arg5);
                 Path userOutputPath = Paths.get(filePath + "testOutput" + counter +".txt");
                 Path expectedOutputPath = Paths.get(filePath + "testExpectedOutput.txt");
 
