@@ -2,7 +2,6 @@ import React,  { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Navbar } from './navbar';
-import Popup from './popUp';
 import { useNavigate, useParams } from 'react-router-dom';
 
 

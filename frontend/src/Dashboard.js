@@ -24,7 +24,7 @@ function Dashboard(props) {
       <h2 className='problem-section'> Introductory Problems </h2>
       <div className="problem-list">
         {Object.entries(problems).map(([key, value]) => (
-            <QuestionRibbon problem={value} />
+            <QuestionRibbon key={key} problem={value} />
         ))}
       </div>
           

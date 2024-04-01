@@ -14,6 +14,7 @@ export const Navbar = () => {
     function logOut(){
         localStorage.removeItem("userData");
         routeChange("/");
+        window.location.reload();
     }
 
     const userData = localStorage.getItem("userData");

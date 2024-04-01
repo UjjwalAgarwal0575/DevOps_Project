@@ -7,13 +7,14 @@ import {
 import './App.css';
 import Dashboard from './Dashboard';
 import QuestionPage from './components/questionPage';
-import AddQuestion from './components/addQuestion';
-import DeleteQuestion from './components/deleteQuestion';
-import UpdateQuestion from './components/updateQuestion';
+import AddQuestion from './admin/addQuestion';
+import DeleteQuestion from './admin/deleteQuestion';
+import UpdateQuestion from './admin/updateQuestion';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Auth } from './authentication/auth';
 import Submissions from './components/submissions';
+import AdminDashboard from './admin/AdminDashboard';
 
 
 class Problem {
@@ -43,8 +44,9 @@ function App() {
     if (localStorage.getItem("userData") !== null) {
       const id = JSON.parse(localStorage.getItem("userData")).id;
 
-      axios.get('http://localhost:8082/api/get-solved-questions-user-id?userId=${id}')
+      axios.get('http://localhost:8082/api/get-solved-problems-user-id?userId='+id)
       .then((response)=>{
+        // console.log(response.data);
         setUserSolvedProblems(response.data);
       })
       .catch((error) => {
@@ -81,12 +83,15 @@ function App() {
 
 
   const problems = {};
+  const cleanedUserSolvedProblems = userSolvedProblems.map(problem => problem.replace(/\"/g, ''));
 
   data.forEach((problemData, index) => {
     
     var solved = false;
-    
-    if (userSolvedProblems.includes(problemData.questionId)){
+    var problemKey = "problem" + problemData.questionId;
+
+    if (cleanedUserSolvedProblems.includes(problemKey)){
+      // console.log("here here");
       solved = true;
     }
 
@@ -100,7 +105,6 @@ function App() {
       problemData.tag
     );
 
-    var problemKey = "problem" + problemData.questionId;
     problems[problemKey] = problem;
     // console.log(`Index: ${index}, Value: ${problem}`);
   });
@@ -112,12 +116,14 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Dashboard problems={problems} />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/add-question" element={<AddQuestion />} />
           <Route path="/delete-question" element={<DeleteQuestion />} />
           <Route path="/update-question" element={<UpdateQuestion />} />
           <Route path="/question-page/:id" element={<QuestionPage problems={problems} />} />
           <Route path="/submissions" element={<Submissions />} />
+
         </Routes>
       </div>
     </Router>

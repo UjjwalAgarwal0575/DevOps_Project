@@ -72,11 +72,12 @@ function QuestionPage(props) {
 
     useEffect(()=>{
 
+        var verdict = "";
         const addSubmission = async () => {
         
             console.log(resultArray);
     
-            var verdict = "Passed";
+            verdict = "Passed";
             // Using forEach method
             resultArray.forEach(obj => {
                 // obj.key.substring may contains leading spaces which we should remove
@@ -120,12 +121,41 @@ function QuestionPage(props) {
     
         }
 
+        const addSolvedProblem = async () => {
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            // const data = {problemId: problemId};
+
+            // console.log("here I am");
+            console.log(problemId);
+
+            try{
+                const response = await axios.post('http://localhost:8082/api/add-solved-problem?userId=' + userData.id, 
+                problemId, 
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                });
+                
+                if (response.status === 200){
+                    console.log("Solved problem added with data: ", response.data);
+                }
+    
+            }catch(error){
+                console.log("Error adding the solved problem: ", error);
+            }
+        }
+
 
         if (addSubmissionBool) {
             addSubmission();
             setAddSubmissionBool(false);
         }
-
+        
+        // the problem is accepted
+        if (verdict === "Passed"){
+            addSolvedProblem();
+        }
 
         // if verdict is Passed
         // append the questionNumber 
@@ -250,7 +280,7 @@ function QuestionPage(props) {
                     <input type="file" id="submissionFile" onChange={handleFileChange} />
                     <br></br>
                     <br></br>
-                    <button onClick={submitCode}>Submit</button>
+                    {(localStorage.getItem("userData") !== null) ? <button onClick={submitCode}>Submit</button> : <p>Log In to Submit</p>}
                     {/* <br></br> */}
                     {/* <button onClick={viewSubmissions}>View Submissions</button> */}
                 </div>
@@ -260,7 +290,7 @@ function QuestionPage(props) {
                     {/* <label for="language-dropdown">Select language: </label> */}
             
                     <div className='horizontal'>
-                        <button onClick={viewSubmissions}>View Submissions</button>
+                        {(localStorage.getItem("userData") !== null) && <button onClick={viewSubmissions}>View Submissions</button>}
                         <div className='quarter'><MonacoEditorComponent testcase={testcase} problemId={problemId} resultArray={resultArray} setResultArray={setResultArray} setDisplayResult={setDisplayResult}/></div>
                         <div className='quarter'><Results displayResult={displayResult} resultArray={resultArray} testcases={testcase}/></div>
                     </div>

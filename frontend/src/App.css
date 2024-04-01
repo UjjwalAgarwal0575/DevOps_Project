@@ -293,7 +293,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 10vh; */
+  margin-top: 10%;
 }
 
 .auth-container {

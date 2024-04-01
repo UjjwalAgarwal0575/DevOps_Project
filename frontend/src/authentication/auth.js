@@ -35,6 +35,7 @@ export const Auth = () => {
                 localStorage.setItem("userData", JSON.stringify(userData));        
                 // console.log("Here I am ");       
                 routeChange("/");
+                window.location.reload();
             }
             // console.log(response);  
             // console.log('SignUp API response:', response.data);
@@ -66,6 +67,7 @@ export const Auth = () => {
                 // console.log(response.data);
                 localStorage.setItem("userData", JSON.stringify(response.data));                
                 routeChange("/");
+                window.location.reload();
             }
         } 
         catch (error) {

@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { Navbar } from './navbar';
+import { Navbar } from '../components/navbar';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateQuestion = () => {
-
+    
+    const navigate = useNavigate();
+    const routeChange = (path) => {
+        navigate(path);
+    }
 
     const updateQuestion = async (e) => {
 
@@ -25,10 +30,15 @@ const UpdateQuestion = () => {
 
         // Update the data
         axios.put(`http://localhost:8082/api/update-question-by-id/${questionId}`, updatedData)
-        .then( response => console.log('Document updated successfully:', response.data))
-        .catch (error => console.error('Error updating document by fieldName:', error));
-            
-
+        .then( (response) => {
+            console.log('Document updated successfully:', response.data);
+            routeChange("/");
+            window.location.reload();
+        })
+        .catch ((error) => {
+            console.error('Error updating document by fieldName:', error);
+            alert("Error updating problem");
+        });
     }
 
 
@@ -36,12 +46,11 @@ const UpdateQuestion = () => {
     return (
         <div >
 
-            <Navbar />
-
 
             <form onSubmit={updateQuestion}>
                 <div className='add-question-form'>
 
+                    <h4 style={{ textAlign: 'center' }}>Update Problem</h4>
                     <label htmlFor="title">Id:</label>
                     <input type="text" id="id" name="id" required />
 
@@ -69,6 +78,8 @@ const UpdateQuestion = () => {
                         {/* <!-- Add more options as needed --> */}
                     </select>
 
+                    <br></br>
+                    <br></br>
                     <button type="submit">Update</button>
                 </div>
 

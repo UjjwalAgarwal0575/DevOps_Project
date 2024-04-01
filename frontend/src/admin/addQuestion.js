@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { Navbar } from './navbar';
+import { Navbar } from '../components/navbar';
+import { useNavigate } from 'react-router-dom';
 
 const AddQuestion = () => {
-
+    const navigate = useNavigate();
+    const routeChange = (path) => {
+        navigate(path);
+    }
 
     const [testCases, setTestCases] = useState([{ 'input': '', 'output': '' }]);
 
@@ -97,6 +101,8 @@ const AddQuestion = () => {
             return;
         }
 
+        routeChange("/");
+        window.location.reload();
     }
 
 
@@ -104,10 +110,11 @@ const AddQuestion = () => {
     return (
         <div >
 
-            <Navbar />
-
             <form onSubmit={addNewQuestion}>
                 <div className='add-question-form'>
+
+                    <h4 style={{ textAlign: 'center' }}>Add Problem</h4>
+
 
                     <label htmlFor="title">Id:</label>
                     <input type="text" id="id" name="id" required />
