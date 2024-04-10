@@ -35,7 +35,7 @@ public class Worker {
     private Queue responseQueue; // Define response queue
     
     @RabbitListener(queues = "message_queue")
-    public List<Pair<String, String>> listener(SubmissionData submissionData) {
+    public String listener(SubmissionData submissionData) {
         
         List<List<String>> testcase = null;
 
@@ -58,9 +58,28 @@ public class Worker {
         System.out.println(testcase);
 
         List<Pair<String, String>> result = runShellScript.execute(fileContent, code, fileType, testcase);
+        String resultData = "";
 
-        
-        return result;
+       
+        for (Pair<String, String> pair : result) {
+            String key = pair.getKey();
+            String value = pair.getValue();
+            
+            // Process key and value as needed
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            resultData = objectMapper.writeValueAsString(result);
+
+            System.out.println(resultData);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+        return resultData;
         // Convert result to JSON if necessary
         // String resultJson = /* Convert result to JSON */;
 

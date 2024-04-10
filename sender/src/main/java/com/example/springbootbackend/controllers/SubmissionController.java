@@ -6,7 +6,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+// import javax.xml.crypto.dsig.keyinfo.KeyValue;
+
 import com.example.springbootbackend.Test.RunShellScript;
+import com.example.springbootbackend.database.KeyValue;
 import com.example.springbootbackend.database.ProblemSubmitted;
 import com.example.springbootbackend.database.SubmissionData;
 import com.example.springbootbackend.database.User;
@@ -93,42 +96,35 @@ public class SubmissionController {
         
         // convert file content to String
 
-        // try{
-            // ObjectMapper objectMapper = new ObjectMapper();
-            // List<List<String>> testcase = objectMapper.readValue(testcaseJson, new TypeReference<List<List<String>>>() {});
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
             
-        System.out.println("At submission controller! Going to submission service " + testcase);
-        // return submissionService.submitFile(file, code, fileType, testcase);
-        // System.out.println(fileContent);
-        // System.out.println(code);
-        // System.out.println(fileType);
-        // System.out.println(testcase);
-        addtoQueue(fileContent, code, fileType, testcase);
-        return null;
+            String response = addtoQueue(fileContent, code, fileType, testcase);
+            KeyValue[] result = objectMapper.readValue(response, KeyValue[].class);
+            
+            List<Pair<String, String>> resultArray = new ArrayList<>();
+            for (KeyValue keyValue : result) {
+                String key = keyValue.getKey();
+                String value = keyValue.getValue();
+                Pair<String, String> pair = new Pair<>(key, value);
+                resultArray.add(pair);
+            }
 
-        // }catch(IOException e){
-        //     e.printStackTrace(); // You might want to log the exception
-        //     List<Pair<String, String>> resultArray = new ArrayList<>();
-        //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultArray);
-        // }
-
+            return ResponseEntity.status(HttpStatus.OK).body(resultArray);
+            
+        }catch(IOException e){
+            e.printStackTrace(); // You might want to log the exception
+            List<Pair<String, String>> resultArray = new ArrayList<>();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultArray);
+        }
+        
     }
 
     private String addtoQueue(@RequestParam(name="file", required=false) String file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase )
     {
         SubmissionData submissionData = new SubmissionData(file, code, fileType, testcase);
-        
-        // ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(template.convertSendAndReceive("message_exchange", "routing_key", submissionData));
-        // System.out.println(a);
-        // try {
-        //     String submissionDataJson = objectMapper.writeValueAsString(submissionData);
-        // } catch (JsonProcessingException e) {
-        //     // Handle the exception appropriately, such as logging the error or throwing a custom exception
-        //     e.printStackTrace(); // Example of handling - print the stack trace
-        // }
-
-        return "Submission Added to Queue";
+        String response = (String) template.convertSendAndReceive("message_exchange", "routing_key", submissionData);
+        return response;
     }
 
 }
