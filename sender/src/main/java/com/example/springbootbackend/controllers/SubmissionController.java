@@ -1,16 +1,24 @@
 package com.example.springbootbackend.controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+// import javax.xml.crypto.dsig.keyinfo.KeyValue;
+
 import com.example.springbootbackend.Test.RunShellScript;
+import com.example.springbootbackend.database.KeyValue;
 import com.example.springbootbackend.database.ProblemSubmitted;
+import com.example.springbootbackend.database.SubmissionData;
 import com.example.springbootbackend.database.User;
 import com.example.springbootbackend.database.UserRepo;
 import com.example.springbootbackend.services.SubmissionService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import io.netty.handler.codec.socksx.SocksPortUnificationServerHandler;
@@ -66,36 +74,57 @@ public class SubmissionController {
     }
 
     @PostMapping("/submit-file")
-    public ResponseEntity<List<Pair<String, String>>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcaseJson){
+    public ResponseEntity<List<Pair<String, String>>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase){
 
         System.out.println(file);
         if (file == null && code.equals("")){
             List<Pair<String, String>> resultArray = new ArrayList<>();
             return new ResponseEntity<>(resultArray, HttpStatus.BAD_REQUEST);
         }
+
+        String fileContent = "";
+        if (file != null){
+            try{
+                InputStream inputStream = file.getInputStream();
+                byte[] bytes = inputStream.readAllBytes();
+                fileContent = new String(bytes, StandardCharsets.UTF_8);
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
+        }
         
+        // convert file content to String
+
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            List<List<String>> testcase = objectMapper.readValue(testcaseJson, new TypeReference<List<List<String>>>() {});
             
-            System.out.println("At submission controller! Going to submission service " + testcase);
-            // return submissionService.submitFile(file, code, fileType, testcase);
-            addtoQueue(file, code, fileType, testcase);
+            String response = addtoQueue(fileContent, code, fileType, testcase);
+            KeyValue[] result = objectMapper.readValue(response, KeyValue[].class);
+            
+            List<Pair<String, String>> resultArray = new ArrayList<>();
+            for (KeyValue keyValue : result) {
+                String key = keyValue.getKey();
+                String value = keyValue.getValue();
+                Pair<String, String> pair = new Pair<>(key, value);
+                resultArray.add(pair);
+            }
 
+            return ResponseEntity.status(HttpStatus.OK).body(resultArray);
+            
         }catch(IOException e){
             e.printStackTrace(); // You might want to log the exception
             List<Pair<String, String>> resultArray = new ArrayList<>();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultArray);
         }
-
+        
     }
 
-    private String addtoQueue(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") List<List<String>> testcase )
+    private String addtoQueue(@RequestParam(name="file", required=false) String file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase )
     {
-        // submissionService.addToQueue(problemSubmitted);
-        template.convertAndSend("message_exchange","routing_key",);
-        // return "Submission Added to Queue";
-        return "Submission Added to Queue";
+        SubmissionData submissionData = new SubmissionData(file, code, fileType, testcase);
+        String response = (String) template.convertSendAndReceive("message_exchange", "routing_key", submissionData);
+        return response;
     }
 
 }

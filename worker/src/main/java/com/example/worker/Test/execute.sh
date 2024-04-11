@@ -15,14 +15,15 @@ echo $output_file
 
 
 if [ $lang = "c" ]; then
-    cat $input_testcase_file | $executable &>> $output_file 
+    cat $input_testcase_file | $executable > $output_file
 elif [ $lang = "cpp" ]; then
+    cat $input_testcase_file | $executable > $output_file 
     cat $input_testcase_file | ./$executable &>> $output_file 
 elif [ $lang = "java" ]; then
     # cat $input_testcase_file | java $executable &>> $output_file 
-    cat $input_testcase_file | java $(basename $executable .java) &>> $output_file 
+    cat $input_testcase_file | java $(basename $executable .java) > $output_file 
 elif [ $lang = "py" ]; then
-    cat $input_testcase_file | python3 $executable &>> $output_file 
+    cat $input_testcase_file | python3 $executable > $output_file 
 else
     echo "Unsupported filetype: $lang"
     exit 1

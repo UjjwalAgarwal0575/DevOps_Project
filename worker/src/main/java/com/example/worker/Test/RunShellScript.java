@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javafx.util.Pair;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class RunShellScript {
 
-    public List<Pair<String, String>> execute(MultipartFile file, String code, String fileType, List<List<String>> testcase) {
+    public List<Pair<String, String>> execute(String file, String code, String fileType, List<List<String>> testcase) {
         System.out.println("hello");        
         System.out.println(testcase);
 
@@ -37,10 +37,11 @@ public class RunShellScript {
         try {
             // Provide the path to your .sh script
             String curDir = System.getProperty("user.dir");
+            // /Users/amar/Documents/DevOps_Project/worker/src/main/java/com/example/worker/Test/RunShellScript.java
             // String Path = curDir + "/src/main/java/com/example/springbootbackend/Test/run.sh";
-            String createExecutablePath = curDir + "/src/main/java/com/example/springbootbackend/Test/createExecutable.sh";
-            String executePath = curDir + "/src/main/java/com/example/springbootbackend/Test/execute.sh";
-            String filePath = curDir + "/src/main/java/com/example/springbootbackend/Test/";
+            String createExecutablePath = curDir + "/src/main/java/com/example/worker/Test/createExecutable.sh";
+            String executePath = curDir + "/src/main/java/com/example/worker/Test/execute.sh";
+            String filePath = curDir + "/src/main/java/com/example/worker/Test/";
             
 
             // If file is empty, create a file with content as code
@@ -48,13 +49,14 @@ public class RunShellScript {
             byte[] fileContent;
             String fileName;
 
-            if (file == null){
+            if (file == ""){
                 fileContent = code.getBytes();
-                fileName = "default_filename.txt";
+                fileName = "default_filenamet" + "." + fileType;
             }
             else{
                 fileContent = file.getBytes();
-                fileName = file.getOriginalFilename();
+                // filaName = file.getOriginalFilename();
+                fileName = "default_filename" + "." + fileType;
             }
 
             // System.out.println("Original fileName is: " + fileName);
