@@ -14,8 +14,11 @@ import com.example.worker.model.SubmissionData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,8 @@ public class Worker {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Autowired
+    private RedisService redisService;
     @Autowired
     private Queue responseQueue; // Define response queue
     
@@ -57,6 +62,7 @@ public class Worker {
         System.out.println(fileType);
         System.out.println(testcase);
 
+        redisService.setValue("Submission ID","Running Testcases");
         List<Pair<String, String>> result = runShellScript.execute(fileContent, code, fileType, testcase);
         String resultData = "";
 
@@ -79,6 +85,7 @@ public class Worker {
             e.printStackTrace();
         }
 
+        redisService.setValue("Submission ID","Accepted");
         return resultData;
         // Convert result to JSON if necessary
         // String resultJson = /* Convert result to JSON */;
