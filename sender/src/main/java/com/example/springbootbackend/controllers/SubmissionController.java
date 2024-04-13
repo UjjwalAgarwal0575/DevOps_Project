@@ -78,7 +78,7 @@ public class SubmissionController {
     }
 
     @PostMapping("/submit-file")
-    public ResponseEntity<List<Pair<String, String>>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase){
+    public ResponseEntity<List<Pair<String, String>>> submitFile(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam("submissionId") String submissionId, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase){
 
         System.out.println(file);
         if (file == null && code.equals("")){
@@ -102,10 +102,13 @@ public class SubmissionController {
 
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            redisService.setValue("Submission ID", "QUEUED");
-            String response = addtoQueue(fileContent, code, fileType, testcase);
+            redisService.setValue(submissionId, "QUEUED");
+            addtoQueue(submissionId, fileContent, code, fileType, testcase);
+            String response = getUpdateRedis(submissionId); 
+            
             KeyValue[] result = objectMapper.readValue(response, KeyValue[].class);
             
+
             List<Pair<String, String>> resultArray = new ArrayList<>();
             for (KeyValue keyValue : result) {
                 String key = keyValue.getKey();
@@ -124,16 +127,16 @@ public class SubmissionController {
         
     }
 
-    private String addtoQueue(@RequestParam(name="file", required=false) String file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase )
+    private String addtoQueue(@RequestParam("submissionId") String submissionId, @RequestParam(name="file", required=false) String file, @RequestParam("sourceCode") String code, @RequestParam("fileType") String fileType, @RequestParam("testcase") String testcase )
     {
-        SubmissionData submissionData = new SubmissionData(file, code, fileType, testcase);
+        SubmissionData submissionData = new SubmissionData(submissionId, file, code, fileType, testcase);
         String response = (String) template.convertSendAndReceive("message_exchange", "routing_key", submissionData);
         return response;
     }
 
-    @GetMapping("get-update")
-    public String getUpdateRedis()
+    // @GetMapping("get-update")
+    public String getUpdateRedis(String submissionId)
     {
-        return redisService.getValue("Submission ID");
+        return redisService.getValue(submissionId);
     }
 }

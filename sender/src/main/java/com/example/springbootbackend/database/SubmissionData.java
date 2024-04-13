@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubmissionData {
+    private String submissionId;
     private String file;
     private String code;
     private String fileType;

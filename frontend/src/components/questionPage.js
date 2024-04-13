@@ -70,7 +70,9 @@ function QuestionPage(props) {
 
     }, []);
 
-    useEffect(()=>{
+    // useEffect(()=>{
+
+    const handleSubmission = (submissionId) => {
 
         var verdict = "";
         const addSubmission = async () => {
@@ -95,6 +97,7 @@ function QuestionPage(props) {
             // make an entry in problemSubmission table
         
             const submissionData = {
+                "submissionId": submissionId,
                 "code": fileContentForSubmission,
                 "userId": userData.id,
                 "problemId": problemId,
@@ -160,7 +163,7 @@ function QuestionPage(props) {
         // if verdict is Passed
         // append the questionNumber 
 
-    }, [resultArray]);
+    }
     
 
     if (loading) {
@@ -203,13 +206,16 @@ function QuestionPage(props) {
                 fileType = filename.split('.').pop();
                     // console.log(fileType);
                 // }
-
+                var submissionId = new Date().getTime().toString(16);
+                
                 formData.append('file', selectedCodeFile);
                 formData.append('sourceCode', code);
                 formData.append('fileType', fileType);
                 formData.append('testcase', JSON.stringify(testcase));
+                formData.append('submissionId', submissionId);
                 
                 console.log(fileType);
+
 
                 const axiosInstance = axios.create({
                     baseURL: 'http://localhost:8082', // Update with your backend container name and port
@@ -225,6 +231,7 @@ function QuestionPage(props) {
                 setResultArray(response.data);
                 setDisplayResult(true);
                 setAddSubmissionBool(true);
+                handleSubmission(submissionId);
                 // addSubmission();
 
             } catch (error) {

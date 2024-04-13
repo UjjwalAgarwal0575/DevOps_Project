@@ -40,7 +40,7 @@ public class Worker {
     private Queue responseQueue; // Define response queue
     
     @RabbitListener(queues = "message_queue")
-    public String listener(SubmissionData submissionData) {
+    public void listener(SubmissionData submissionData) {
         
         List<List<String>> testcase = null;
 
@@ -48,6 +48,7 @@ public class Worker {
         String code = submissionData.getCode();
         String fileType = submissionData.getFileType();
         String testcaseJson = submissionData.getTestcase();
+        String submissionId = submissionData.getSubmissionId();
 
         try{
             ObjectMapper objectMapper = new ObjectMapper();
@@ -62,7 +63,7 @@ public class Worker {
         System.out.println(fileType);
         System.out.println(testcase);
 
-        redisService.setValue("Submission ID","Running Testcases");
+        redisService.setValue(submissionId, "Running Testcases");
         List<Pair<String, String>> result = runShellScript.execute(fileContent, code, fileType, testcase);
         String resultData = "";
 
@@ -85,11 +86,8 @@ public class Worker {
             e.printStackTrace();
         }
 
-        redisService.setValue("Submission ID","Accepted");
-        return resultData;
-        // Convert result to JSON if necessary
-        // String resultJson = /* Convert result to JSON */;
-
-        // Publish the result to response queue
+        redisService.setValue(submissionId, resultData);
+        // return resultData;
+  
     }
 }

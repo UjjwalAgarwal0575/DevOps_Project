@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubmissionData {
+    private String submissionId;
     private String file;
     private String code;
     private String fileType;
@@ -58,4 +59,14 @@ public class SubmissionData {
     public void setTestcase(String testcase) {
         this.testcase = testcase;
     }
+
+    public String getSubmissionId(){
+        return submissionId;
+    }
+    
+    public void setSubmissionId(String submissionId) {
+        this.submissionId = submissionId;
+    }
+
+
 }

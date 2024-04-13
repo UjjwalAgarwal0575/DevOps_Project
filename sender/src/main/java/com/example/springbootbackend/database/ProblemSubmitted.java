@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Document (collection = "submissions")
 public class ProblemSubmitted {
     @Id
-    private String id;
+    private String submissionId;
     private String userId;
     private String problemId;
     private String accepted;

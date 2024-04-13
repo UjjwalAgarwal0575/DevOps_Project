@@ -48,7 +48,7 @@ const Submissions = () => {
     const submissionHistoryRendered = submissionHistory.map(obj => (
         <div className="submission-ribbon" key={obj.id} onClick={() => handleItemClick(obj)}>
             <div className={obj.accepted}>
-                <div>Submission Id: {obj.id}</div>
+                <div>Submission Id: {obj.submissionId}</div>
                 <h4>{obj.accepted}</h4>
   
             </div>

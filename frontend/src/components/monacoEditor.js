@@ -29,7 +29,7 @@ const files = {
 export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResultArray, setDisplayResult}) => {
 
 
-  useEffect(()=>{
+  const handleSubmission = (submissionId) => {
 
     var verdict = "";
 
@@ -56,6 +56,7 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
         // Now we know the problem has passed all the testcases
         // make an entry in problemSubmission table
         const submissionData = {
+            "submissionId": submissionId,
             "code": editorRef.current.getValue(),
             "userId": userData.id,
             "problemId": problemId,
@@ -113,7 +114,7 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
         addSolvedProblem();
     }
 
-}, [resultArray]);
+}
 
 
 
@@ -148,10 +149,12 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
       try {
         const formData = new FormData();
 
+        var submissionId = new Date().getTime().toString(16);
         formData.append('file', null);
         formData.append('sourceCode', editorRef.current.getValue());
         formData.append('fileType', fileName);
         formData.append('testcase', JSON.stringify(testcase));
+        formData.append('submissionId', submissionId);
 
         const axiosInstance = axios.create({
           baseURL: 'http://localhost:8082', // Update with your backend container name and port
@@ -167,6 +170,7 @@ export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResu
         setResultArray(response.data);
         setDisplayResult(true);
         setAddSubmissionBool(true);
+        handleSubmission(submissionId);
 
         // if all the testcases are passed
         // mark the question as done
