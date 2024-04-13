@@ -29,7 +29,7 @@ const files = {
 export const MonacoEditorComponent = ({testcase, problemId, resultArray, setResultArray, setDisplayResult}) => {
 
 
-  const handleSubmission = (submissionId) => {
+  const handleSubmission = async (submissionId) => {
 
     var verdict = "";
 

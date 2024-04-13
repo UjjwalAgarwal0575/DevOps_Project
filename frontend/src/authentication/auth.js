@@ -90,7 +90,7 @@ export const Auth = () => {
     };
 
     return (
-        <div className="app-container">
+        <div className="app-container bg-img-auth">
             <div className="auth-container">
                 <h2>{isRegistering ? 'Register' : 'Login'}</h2>
                 <form onSubmit={handleSubmit}>
