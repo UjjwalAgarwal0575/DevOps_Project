@@ -15,6 +15,7 @@ import com.example.springbootbackend.database.SubmissionData;
 import com.example.springbootbackend.database.User;
 import com.example.springbootbackend.database.UserRepo;
 import com.example.springbootbackend.services.SubmissionService;
+import com.example.springbootbackend.services.RedisService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -54,6 +55,9 @@ public class SubmissionController {
     
     @Autowired
     private RabbitTemplate template;
+
+    @Autowired
+    private RedisService redisService;
 
     @PostMapping("/post-data")
     public User saveUser(@RequestBody User user){
@@ -98,7 +102,7 @@ public class SubmissionController {
 
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            
+            redisService.setValue("Submission ID", "QUEUED");
             String response = addtoQueue(fileContent, code, fileType, testcase);
             KeyValue[] result = objectMapper.readValue(response, KeyValue[].class);
             
@@ -127,4 +131,9 @@ public class SubmissionController {
         return response;
     }
 
+    @GetMapping("get-update")
+    public String getUpdateRedis()
+    {
+        return redisService.getValue("Submission ID");
+    }
 }
