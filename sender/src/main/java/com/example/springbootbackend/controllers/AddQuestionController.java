@@ -18,7 +18,7 @@ import com.example.springbootbackend.database.QuestionRepo;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class AddQuestionController {
 
     @Autowired
