@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, BrowserRouter} from 'react-router-dom';
 import './App.css';
 import Dashboard from './Dashboard';
 import QuestionPage from './components/questionPage';
@@ -15,6 +10,7 @@ import { useState, useEffect } from 'react';
 import { Auth } from './authentication/auth';
 import Submissions from './components/submissions';
 import AdminDashboard from './admin/AdminDashboard';
+import SubmittedCodeView from './components/submittedCodeView';
 
 
 class Problem {
@@ -109,6 +105,9 @@ function App() {
     // console.log(`Index: ${index}, Value: ${problem}`);
   });
 
+  const isLoggedIn = () => {
+    return localStorage.getItem('userData') !== null;
+  }
 
 
   return (
@@ -123,10 +122,11 @@ function App() {
           <Route path="/update-question" element={<UpdateQuestion />} />
           <Route path="/question-page/:id" element={<QuestionPage problems={problems} />} />
           <Route path="/submissions" element={<Submissions />} />
-
+          <Route path="/submitted-code-view" element={<SubmittedCodeView />} />
         </Routes>
       </div>
     </Router>
+
   );
 }
 

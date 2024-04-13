@@ -6,6 +6,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 
 const Submissions = () => {
+    useEffect(()=>{
+        if (localStorage.getItem('userData') === null || location.state.data === null){
+            routeChange("/auth");
+        }
+
+        // if (data === null) routeChange("/auth");
+    });
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,7 +26,8 @@ const Submissions = () => {
     
     
     const handleItemClick = (obj) => {
-        alert(obj.code);
+        console.log(obj);
+        routeChange('/submitted-code-view', obj);
     };
     
     
@@ -46,7 +54,7 @@ const Submissions = () => {
 
 
     const submissionHistoryRendered = submissionHistory.map(obj => (
-        <div className="submission-ribbon" key={obj.id} onClick={() => handleItemClick(obj)}>
+        <div className="submission-ribbon" key={obj.submissionId} onClick={() => handleItemClick(obj)}>
             <div className={obj.accepted}>
                 <div>Submission Id: {obj.submissionId}</div>
                 <h4>{obj.accepted}</h4>

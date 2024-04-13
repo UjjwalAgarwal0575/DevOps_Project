@@ -72,7 +72,7 @@ function QuestionPage(props) {
 
     // useEffect(()=>{
 
-    const handleSubmission = (submissionId) => {
+    const handleSubmission = async (submissionId) => {
 
         var verdict = "";
         const addSubmission = async () => {
