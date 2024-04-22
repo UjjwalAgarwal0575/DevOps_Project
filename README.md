@@ -17,10 +17,12 @@ kubectl
 ### Docker-compose
 
 chmod +x run_compose.sh 
+
 ./run_compose.sh
 
 ### Kubernetes
 
 chmod +x run_kuber.sh
+
 ./run_kuber.sh
 
