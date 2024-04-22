@@ -22,4 +22,4 @@ npm install
 docker build --tag 'frontend' .
 cd ..
 
-docker-compose up
+docker compose up -d
