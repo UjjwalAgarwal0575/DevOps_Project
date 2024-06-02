@@ -63,6 +63,8 @@ services:
       - "3000:3000"
     networks:
       - my-network
+    labels:
+      kompose.service.type: LoadBalancer
 
 networks:
   my-network:

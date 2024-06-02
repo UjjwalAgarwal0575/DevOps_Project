@@ -38,7 +38,6 @@ const Submissions = () => {
     useEffect(() => {
 
         setLoading(false);
-
         axios.get(`http://localhost:8082/api/get-submissions-user-problem-id?problemId=${data.problemId}&userId=${data.userId}`)
             .then((response) => {
 

@@ -3,32 +3,35 @@ kind: Deployment
 metadata:
   annotations:
     kompose.cmd: kompose convert
+    kompose.service.type: LoadBalancer
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: redis-server
-  name: redis-server
+    io.kompose.service: frontend
+  name: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis-server
+      io.kompose.service: frontend
   strategy: {}
   template:
     metadata:
       annotations:
         kompose.cmd: kompose convert
+        kompose.service.type: LoadBalancer
         kompose.version: 1.26.0 (40646f47)
       creationTimestamp: null
       labels:
         io.kompose.network/my-network: "true"
-        io.kompose.service: redis-server
+        io.kompose.service: frontend
     spec:
       containers:
-        - image: redis:6.0.16
-          name: redis
+        - image: frontend
+          name: frontend-container
+          imagePullPolicy: Never
           ports:
-            - containerPort: 6379
+            - containerPort: 3000
           resources: {}
       restartPolicy: Always
 status: {}

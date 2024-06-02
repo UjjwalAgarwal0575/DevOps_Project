@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: redis-server
-  name: redis-server
+    io.kompose.service: worker
+  name: worker
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis-server
+      io.kompose.service: worker
   strategy: {}
   template:
     metadata:
@@ -22,13 +22,19 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/my-network: "true"
-        io.kompose.service: redis-server
+        io.kompose.service: worker
     spec:
       containers:
-        - image: redis:6.0.16
-          name: redis
+        - env:
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
+            - name: SPRING_RABBITMQ_PORT
+              value: "5672"
+          image: worker
+          name: worker-container
+          imagePullPolicy: Never
           ports:
-            - containerPort: 6379
+            - containerPort: 8081
           resources: {}
       restartPolicy: Always
 status: {}
